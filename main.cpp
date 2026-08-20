@@ -18,18 +18,18 @@ int main() {
     cout << CYAN << "👤 Name: HieuNhan\n" << RESET;
     cout << CYAN << "📚 Course: OOP with C++\n" << RESET;
     cout << CYAN << "🏫 School: HCMUTE (HCMC University of Technology and Education)\n" << RESET;
-    cout << CYAN << "📍 Hometown: Ho Chi Minh City, Vietnam\n" << RESET; // Thông tin mới 1
+    cout << CYAN << "📍 Hometown: Ho Chi Minh City, Vietnam\n" << RESET; 
 
     // 3. Phần thông tin công nghệ & Sở thích
-    cout << CYAN << "💻 OS Environment: Windows 11\n" << RESET; // Thông tin mới 2
+    cout << CYAN << "💻 OS Environment: Windows 11\n" << RESET; 
     cout << CYAN << "🔥 Favorite Language: C++ & Python\n" << RESET;
-    cout << CYAN << "🎮 Hobbies: Coding, Gaming & Tech Exploring\n" << RESET; // Thông tin mới 3
+    cout << CYAN << "🎮 Hobbies: Coding, Gaming & Tech Exploring\n" << RESET; 
 
     // 4. Phần mục tiêu tương lai
     cout << CYAN << "🎯 My Goal: Become a Core Software Engineer\n" << RESET;
     cout << YELLOW << "💬 Message: 💡 Practice makes perfect. Never stop learning!\n\n" << RESET;
 
-    // 5. Khung kết thúc ấn tượng
+    // 5. Khung kết thúc
     cout << GREEN << "═════════════════════════════════════════\n" << RESET;
     cout << GREEN << "          ✨ KEEP CODING 💻 ✨           \n" << RESET;
     cout << GREEN << "═════════════════════════════════════════\n" << RESET;
