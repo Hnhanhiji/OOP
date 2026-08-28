@@ -237,5 +237,5 @@ int main() {
     cout << "Total students: 20\n";
     cout << "=========================================\n";
 
-    return 0;
+    return 0; // kết thúc chương trình
 }
