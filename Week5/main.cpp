@@ -34,8 +34,13 @@ int main()
             cin >> scores[i];
         }
     }
+    //3. Display the array
+	cout << "Scores of students: ";
 
-   
+    for (int i = 0; i < numStudents; i++) {
+        cout << scores[i] << " ";
+    }
+    cout << endl;
 
     return 0;
 }
