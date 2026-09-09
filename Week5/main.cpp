@@ -87,7 +87,34 @@ int main()
 
     cout << "Highest score: " << highestScore << endl;
     cout << "Lowest score: " << lowestScore << endl;
+    //clarify students
+        // --- PHẦN 7: XẾP LOẠI HỌC SINH ---
+    cout << "===== CLASSIFICATION =====" << endl;
+
+    for (int i = 0; i < numStudents; i++) {
+        cout << "Student " << (i + 1) << ": " << scores[i] << " -> ";
+
+        // Sử dụng cấu trúc if - else if - else để phân loại điểm số
+        if (scores[i] >= 9.0 && scores[i] <= 10.0) {
+            cout << "Excellent" << endl;
+        }
+        else if (scores[i] >= 8.0) { // Điểm từ 8.0 đến dưới 9.0
+            cout << "Very Good" << endl;
+        }
+        else if (scores[i] >= 6.5) { // Điểm từ 6.5 đến dưới 8.0
+            cout << "Good" << endl;
+        }
+        else if (scores[i] >= 5.0) { // Điểm từ 5.0 đến dưới 6.5
+            cout << "Average" << endl;
+        }
+        else {                       // Điểm dưới 5.0
+            cout << "Fail" << endl;
+        }
+    }
+
+
 
     return 0;
 }
+
 
