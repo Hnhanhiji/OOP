@@ -51,7 +51,30 @@ int main()
         }
     }
     cout << endl;
+	//counts student who passed and failed
+	int passCount = 0;
+	int failCount = 0;
+	// vòng lặp để đếm số lượng học sinh đạt và không đạt
+    for (int i = 0; i < numStudents; i++) {
+        if (scores[i] >= 5) {
+            passCount++;
+        } else {
+            failCount++;
+        }
+    }
+
+	// caluclate the pass rate
+	double passRate = (double)passCount / numStudents * 100;
+	cout << "Pass rate: " << passRate << "%" << endl;
+    // In ra kết quả 
+    
+    cout << "===== STATISTICS =====" << endl;
+    cout << "Passed : " << passCount << " students" << endl;
+    cout << "Failed : " << failCount << " students" << endl;
+    cout << "Pass rate: " << passRate << "%" << endl;
+
+
+
 
     return 0;
 }
-
