@@ -41,6 +41,17 @@ int main()
         cout << scores[i] << " ";
     }
     cout << endl;
+    //pass or fail
+    cout << "Pass or Fail: ";
+    for (int i = 0; i < numStudents; i++) {
+        if (scores[i] >= 5) {
+            cout << "Pass ";
+        } else {
+            cout << "Fail ";
+        }
+    }
+    cout << endl;
 
     return 0;
 }
+
