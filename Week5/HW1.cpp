@@ -231,6 +231,18 @@ int main()
 		}
 	}
 	cout << "Longest pass break: " << longestPassBreak << " students" << endl;
+	// Create a Score Distribution 
+	int  distribution[11] = { 0 }; // Initialize distribution array for scores 0-10
+	for (int i = 0; i < numStudents; i++) {
+		distribution[(int)scores[i]]++;
+	}
+	cout << "Score distribution:" << endl;
+	for (int i = 0; i <= 10; i++) {
+		if (distribution[i] > 0) {
+			cout << i << ": " << distribution[i] << endl;
+		}
+	}
+	cout << "===== END OF PROGRAM =====" << endl;
 
 
 
