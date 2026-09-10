@@ -147,6 +147,20 @@ int main()
 		}
 	}
 	cout << endl;
+	//Find students second highest score
+	double secondHighestScore = lowestScore; // Initialize to the lowest score
+	for (int i = 0; i < numStudents; i++) {
+		if (scores[i] > secondHighestScore && scores[i] < highestScore) {
+			secondHighestScore = scores[i];
+		}
+	}
+	if (secondHighestScore == lowestScore) {
+		cout << "There is no second highest score." << endl;
+	}
+	else {
+		cout << "Second highest score: " << secondHighestScore << endl;
+	}
+
 
     return 0;
 }
