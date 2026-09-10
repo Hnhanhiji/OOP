@@ -305,3 +305,45 @@ void cau18_FindFlowersByNameKeyword(Flower flowers[], int N) {
         cout << "Không tìm thấy loài hoa nào có tên chứa từ khóa trên.\n";
     }
 }
+// --- CÂU 19: Tính số lượng (Quantity) trung bình của mỗi phân loại hoa (Type) ---
+// Yêu cầu: Đối với mỗi phân loại, tính toán và hiển thị số lượng tồn kho trung bình.
+void cau19_CalculateAverageQuantityByType(Flower flowers[], int N) {
+    cout << "\n--- Kết quả câu 19: Số lượng tồn kho trung bình theo từng loại ---\n";
+    
+    string visited[20]; // Mảng phụ dùng lưu trữ các Type đã được xử lý (tránh tính trùng lặp)
+    int visitedCount = 0;
+    
+    for (int i = 0; i < N; i++) {
+        bool alreadyCounted = false;
+        
+        // Kiểm tra xem phân loại (Type) của hoa hiện tại đã được tính toán ở các vòng lặp trước chưa
+        for (int j = 0; j < visitedCount; j++) {
+            if (toLower(flowers[i].type) == toLower(visited[j])) {
+                alreadyCounted = true;
+                break;
+            }
+        }
+        
+        // Nếu phân loại này mới hoàn toàn và chưa được tính toán
+        if (!alreadyCounted) {
+            double sumQty = 0; // Biến tích lũy tổng số lượng tồn kho của phân loại này
+            int count = 0;     // Biến đếm số lượng loài hoa thuộc phân loại này
+            
+            // Chạy vòng lặp quét qua toàn bộ danh sách để gom nhóm dữ liệu theo Type
+            for (int k = 0; k < N; k++) {
+                if (toLower(flowers[k].type) == toLower(flowers[i].type)) {
+                    sumQty += flowers[k].quantity;
+                    count++;
+                }
+            }
+            
+            // Tính trung bình bằng Tổng số lượng / Số loài hoa cùng phân loại
+            double average = sumQty / count;
+            cout << "- Phân loại [" << flowers[i].type << "]: Số lượng TB là " 
+                 << fixed << setprecision(2) << average << " bông mỗi loài.\n";
+                 
+            // Lưu phân loại này vào mảng visited để bỏ qua trong các vòng lặp sau
+            visited[visitedCount++] = flowers[i].type;
+        }
+    }
+}
