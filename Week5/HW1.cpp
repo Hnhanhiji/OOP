@@ -1,4 +1,3 @@
-
 #include <iostream>
 using namespace std;
 
@@ -119,7 +118,21 @@ int main()
 			excellentCount++;
 		}
 	}
-	
+	cout << "Number of excellent students: " << excellentCount << endl;
+	cin.get(); // Wait for user input before closing the console window
+	//Count students in a score range
+	int countInRange = 0;
+	double lowerBound, upperBound;
+	cout << "Enter lower bound of score range: ";
+	cin >> lowerBound;
+	cout << "Enter upper bound of score range: ";
+	cin >> upperBound;
+	for (int i = 0; i < numStudents; i++) {
+		if (scores[i] >= lowerBound && scores[i] <= upperBound) {
+			countInRange++;
+		}
+	}
+	cout << "Number of students in the score range [" << lowerBound << ", " << upperBound << "]: " << countInRange << endl;
 
     return 0;
 }
