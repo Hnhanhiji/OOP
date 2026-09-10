@@ -160,7 +160,21 @@ int main()
 	else {
 		cout << "Second highest score: " << secondHighestScore << endl;
 	}
-
+	// Search for a specific score
+int searchScore;
+cout << "Enter a score to search for: ";
+cin >> searchScore;
+bool found = false;
+for (int i = 0; i < numStudents; i++) {
+	if (scores[i] == searchScore) {
+		cout << "Score " << searchScore << " found for student " << (i +
+			1) << endl;
+		found = true;
+	}
+}
+if (!found) {
+	cout << "Score " << searchScore << " not found." << endl;
+}
 
     return 0;
 }
