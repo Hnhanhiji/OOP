@@ -189,3 +189,12 @@ void cau10_CheckIfFlowerExists(Flower flowers[], int N) {
     cout << "--- Cau 10: Check Existence ---\n";
     cout << "Result: " << (exists ? "Yes" : "No") << endl;
 }
+// Câu 11: Đếm số lượng loại hoa sắp hết hàng (số lượng tồn kho < 5)
+void cau11_CountFlowersWithLowQuantity(Flower flowers[], int N) {
+    int countLow = 0;
+    for (int i = 0; i < N; i++) {
+        if (flowers[i].quantity < 5) countLow++;
+    }
+    cout << "--- Cau 11: Low Quantity Count (< 5) ---\n";
+    cout << "Number of flowers with quantity < 5: " << countLow << endl;
+}
