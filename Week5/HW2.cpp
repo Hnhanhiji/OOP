@@ -83,3 +83,15 @@ void cau3_FindCheapestFlower(Flower flowers[], int N) {
         if (flowers[i].price == minPrice) printFlower(i + 1, flowers[i]);
     }
 }
+// Câu 4: Tìm hoa có số lượng tồn kho nhiều nhất
+void cau4_FindLargestQuantity(Flower flowers[], int N) {
+    cout << "--- Cau 4: Flower(s) with Largest Quantity ---\n";
+    int maxQty = flowers[0].quantity;
+    for (int i = 1; i < N; i++) {
+        if (flowers[i].quantity > maxQty) maxQty = flowers[i].quantity;
+    }
+    printHeader();
+    for (int i = 0; i < N; i++) {
+        if (flowers[i].quantity == maxQty) printFlower(i + 1, flowers[i]);
+    }
+}
