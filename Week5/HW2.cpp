@@ -220,3 +220,18 @@ void cau13_CalculateTotalValue(Flower flowers[], int N) {
     cout << "--- Cau 13: Total Value ---\n";
     cout << "Total inventory value: $" << fixed << setprecision(2) << totalValue << endl;
 }
+// Câu 14: Tìm bông hoa mang lại tổng giá trị tài sản lớn nhất (Giá tiền * Số lượng lớn nhất)
+void cau14_FindMostValuableFlower(Flower flowers[], int N) {
+    double maxVal = flowers[0].price * flowers[0].quantity;
+    for (int i = 1; i < N; i++) {
+        double val = flowers[i].price * flowers[i].quantity;
+        if (val > maxVal) maxVal = val;
+    }
+    cout << "--- Cau 14: Most Valuable Flower(s) ---\n";
+    printHeader();
+    for (int i = 0; i < N; i++) {
+        if ((flowers[i].price * flowers[i].quantity) == maxVal) {
+            printFlower(i + 1, flowers[i]);
+        }
+    }
+}
