@@ -235,3 +235,18 @@ void cau14_FindMostValuableFlower(Flower flowers[], int N) {
         }
     }
 }
+// Câu 15: Sắp xếp mảng theo thứ tự giá tăng dần (Sử dụng mảng sao chép tạm thời)
+void cau15_SortFlowersByPrice(Flower flowers[], int N) {
+    Flower temp[20];
+    for (int i = 0; i < N; i++) temp[i] = flowers[i];
+    
+    // Bubble sort sắp xếp tăng dần theo giá
+    for (int i = 0; i < N - 1; i++) {
+        for (int j = 0; j < N - i - 1; j++) {
+            if (temp[j].price > temp[j + 1].price) swap(temp[j], temp[j + 1]);
+        }
+    }
+    cout << "--- Cau 15: Sorted by Price (Low to High) ---\n";
+    printHeader();
+    for (int i = 0; i < N; i++) printFlower(i + 1, temp[i]);
+}
