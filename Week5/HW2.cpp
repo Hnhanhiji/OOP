@@ -211,3 +211,12 @@ void cau12_CountFlowersInPriceRange(Flower flowers[], int N) {
     cout << "--- Cau 12: Price Range Count ---\n";
     cout << "Result: There are " << countRange << " flower(s) in that price range.\n";
 }
+// Câu 13: Tính tổng giá trị vốn của toàn bộ cửa hàng (Giá tiền * Số lượng của từng loại)
+void cau13_CalculateTotalValue(Flower flowers[], int N) {
+    double totalValue = 0;
+    for (int i = 0; i < N; i++) {
+        totalValue += (flowers[i].price * flowers[i].quantity);
+    }
+    cout << "--- Cau 13: Total Value ---\n";
+    cout << "Total inventory value: $" << fixed << setprecision(2) << totalValue << endl;
+}
