@@ -111,6 +111,8 @@ int main()
             cout << "Fail" << endl;
         }
     }
+    // BT 10 FOLLOW-UP EXERCISE
+
 	// Count excellent students
 	int excellentCount = 0;
 	for (int i = 0; i < numStudents; i++) {
@@ -159,22 +161,34 @@ int main()
 	}
 	else {
 		cout << "Second highest score: " << secondHighestScore << endl;
-	}
+	} 
 	// Search for a specific score
-int searchScore;
-cout << "Enter a score to search for: ";
-cin >> searchScore;
-bool found = false;
-for (int i = 0; i < numStudents; i++) {
-	if (scores[i] == searchScore) {
-		cout << "Score " << searchScore << " found for student " << (i +
-			1) << endl;
-		found = true;
+	int searchScore;
+	cout << "Enter a score to search for: ";
+	cin >> searchScore;
+	bool found = false;
+	for (int i = 0; i < numStudents; i++) {
+		if (scores[i] == searchScore) {
+			cout << "Score " << searchScore << " found for student " << (i +
+				1) << endl;
+			found = true;
+		}
 	}
-}
-if (!found) {
-	cout << "Score " << searchScore << " not found." << endl;
-}
+	if (!found) {
+		cout << "Score " << searchScore << " not found." << endl;
+	}
+	// Count score Frequency
+	int frequency[11] = { 0 }; // Initialize frequency array for scores 0-10
+	for (int i = 0; i < numStudents; i++) {
+		frequency[(int)scores[i]]++;
+	}
+	cout << "Score frequency:" << endl;
+	for (int i = 0; i <= 10; i++) {
+		if (frequency[i] > 0) {
+			cout << i << ": " << frequency[i] << endl;
+		}
+	}
 
     return 0;
 }
+
