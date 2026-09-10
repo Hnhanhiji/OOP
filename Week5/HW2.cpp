@@ -69,3 +69,17 @@ void cau2_FindMostExpensiveFlower(Flower flowers[], int N) {
         if (flowers[i].price == maxPrice) printFlower(i + 1, flowers[i]);
     }
 }
+// Câu 3: Tìm và hiển thị (các) loài hoa có giá rẻ nhất
+void cau3_FindCheapestFlower(Flower flowers[], int N) {
+    cout << "--- Cau 3: Cheapest Flower(s) ---\n";
+    double minPrice = flowers[0].price;
+    // Tìm giá trị nhỏ nhất
+    for (int i = 1; i < N; i++) {
+        if (flowers[i].price < minPrice) minPrice = flowers[i].price;
+    }
+    // In ra tất cả các hoa có cùng mức giá rẻ nhất đó
+    printHeader();
+    for (int i = 0; i < N; i++) {
+        if (flowers[i].price == minPrice) printFlower(i + 1, flowers[i]);
+    }
+}
