@@ -250,3 +250,18 @@ void cau15_SortFlowersByPrice(Flower flowers[], int N) {
     printHeader();
     for (int i = 0; i < N; i++) printFlower(i + 1, temp[i]);
 }
+// Câu 16: Sắp xếp danh sách hoa theo thứ tự bảng chữ cái từ A đến Z của Tên hoa
+void cau16_SortFlowersByName(Flower flowers[], int N) {
+    Flower temp[20];
+    for (int i = 0; i < N; i++) temp[i] = flowers[i];
+
+    // Bubble sort sắp xếp theo Alphabet
+    for (int i = 0; i < N - 1; i++) {
+        for (int j = 0; j < N - i - 1; j++) {
+            if (toLower(temp[j].name) > toLower(temp[j + 1].name)) swap(temp[j], temp[j + 1]);
+        }
+    }
+    cout << "--- Cau 16: Sorted by Name (A to Z) ---\n";
+    printHeader();
+    for (int i = 0; i < N; i++) printFlower(i + 1, temp[i]);
+}
