@@ -172,3 +172,20 @@ void cau9_SearchByName(Flower flowers[], int N) {
     }
     if (!found) cout << "Flower not found.\n";
 }
+// Câu 10: Kiểm tra xem một loài hoa có tồn tại trong tiệm hay không (Trả về Yes/No)
+void cau10_CheckIfFlowerExists(Flower flowers[], int N) {
+    cin.ignore();
+    string checkName;
+    cout << "Enter name to check existence: ";
+    getline(cin, checkName);
+    
+    bool exists = false;
+    for (int i = 0; i < N; i++) {
+        if (toLower(flowers[i].name) == toLower(checkName)) {
+            exists = true;
+            break;
+        }
+    }
+    cout << "--- Cau 10: Check Existence ---\n";
+    cout << "Result: " << (exists ? "Yes" : "No") << endl;
+}
