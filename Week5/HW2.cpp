@@ -104,3 +104,12 @@ void cau5_CalculateTotalQuantity(Flower flowers[], int N) {
     cout << "--- Cau 5: Total Quantity ---\n";
     cout << "Total quantity of all flowers: " << totalQty << endl;
 }
+// Câu 6: Tính giá tiền trung bình của các loài hoa có trong tiệm
+void cau6_CalculateAveragePrice(Flower flowers[], int N) {
+    double sumPrice = 0;
+    for (int i = 0; i < N; i++) {
+        sumPrice += flowers[i].price;
+    }
+    cout << "--- Cau 6: Average Price ---\n";
+    cout << "Average price of all flowers: " << fixed << setprecision(2) << (sumPrice / N) << endl;
+}
