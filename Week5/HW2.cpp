@@ -347,3 +347,44 @@ void cau19_CalculateAverageQuantityByType(Flower flowers[], int N) {
         }
     }
 }
+// --- CÂU 20: Tạo một báo cáo đơn giản (Simple Report) ---
+// Yêu cầu: Hiển thị tổng số loài hoa, tổng số lượng tất cả các bông, giá trung bình và số lượng loài hoa trong từng phân loại.
+void cau20_GenerateSimpleReport(Flower flowers[], int N) {
+    int totalQty = 0;     // Tổng số lượng bông hoa đang có trong tiệm
+    double sumPrice = 0;  // Tổng giá tiền để phục vụ việc tính giá trung bình
+    
+    for (int i = 0; i < N; i++) {
+        totalQty += flowers[i].quantity;
+        sumPrice += flowers[i].price;
+    }
+    
+    cout << "\n--- Kết quả câu 20: BÁO CÁO TỔNG QUAN HÀNG HÓA ---\n";
+    cout << "1. Tổng số loài hoa đang quản lý (Unique variants) : " << N << " loài.\n";
+    cout << "2. Tổng số lượng bông hoa đang tồn kho (Total quantity): " << totalQty << " bông.\n";
+    cout << "3. Giá tiền trung bình của một loài hoa (Average price) : $" << fixed << setprecision(2) << (sumPrice / N) << "\n";
+    
+    cout << "\n4. Số lượng loài hoa thuộc mỗi phân loại:\n";
+    string visited[20];
+    int visitedCount = 0;
+    
+    // Vòng lặp đếm số lượng loài hoa của từng nhóm phân loại (Tương tự thuật toán lọc trùng câu 19)
+    for (int i = 0; i < N; i++) {
+        bool alreadyCounted = false;
+        for (int j = 0; j < visitedCount; j++) {
+            if (toLower(flowers[i].type) == toLower(visited[j])) {
+                alreadyCounted = true;
+                break;
+            }
+        }
+        if (!alreadyCounted) {
+            int count = 0;
+            for (int k = 0; k < N; k++) {
+                if (toLower(flowers[k].type) == toLower(flowers[i].type)) {
+                    count++;
+                }
+            }
+            cout << "   + Loại [" << flowers[i].type << "]: Có " << count << " loài hoa khác nhau.\n";
+            visited[visitedCount++] = flowers[i].type;
+        }
+    }
+}
