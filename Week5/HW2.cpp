@@ -55,3 +55,17 @@ void cau1_DisplayAllFlowers(Flower flowers[], int N) {
         printFlower(i + 1, flowers[i]);
     }
 }
+// Câu 2: Tìm và hiển thị (các) loài hoa có giá đắt nhất
+void cau2_FindMostExpensiveFlower(Flower flowers[], int N) {
+    cout << "--- Cau 2: Most Expensive Flower(s) ---\n";
+    double maxPrice = flowers[0].price;
+    // Tìm giá trị lớn nhất
+    for (int i = 1; i < N; i++) {
+        if (flowers[i].price > maxPrice) maxPrice = flowers[i].price;
+    }
+    // In ra tất cả các hoa có cùng mức giá đắt nhất đó
+    printHeader();
+    for (int i = 0; i < N; i++) {
+        if (flowers[i].price == maxPrice) printFlower(i + 1, flowers[i]);
+    }
+}
