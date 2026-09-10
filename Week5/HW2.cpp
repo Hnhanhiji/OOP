@@ -281,3 +281,27 @@ void cau17_FindTop3MostExpensive(Flower flowers[], int N) {
     int limit = (N < 3) ? N : 3; // Phòng trường hợp N nhỏ hơn 3
     for (int i = 0; i < limit; i++) printFlower(i + 1, temp[i]);
 }
+// --- CÂU 18: Tìm hoa có tên chứa từ khóa do người dùng nhập ---
+// Yêu cầu: Nhập vào một từ khóa (keyword) và hiển thị tất cả các hoa có tên chứa từ khóa đó (Ví dụ: nhập "rose").
+void cau18_FindFlowersByNameKeyword(Flower flowers[], int N) {
+    cin.ignore(); // Xóa bộ nhớ đệm trước khi nhập chuỗi hành động tránh bị trôi dòng
+    string keyword;
+    cout << "Nhập từ khóa cần tìm kiếm trong tên hoa (Ví dụ: 'rose'): ";
+    getline(cin, keyword);
+    
+    cout << "\n--- Kết quả câu 18: Các loại hoa chứa từ khóa [" << keyword << "] ---\n";
+    printHeader();
+    bool found = false; // Biến đánh dấu xem có tìm thấy hoa nào không
+    
+    for (int i = 0; i < N; i++) {
+        // Sử dụng hàm .find() để kiểm tra chuỗi keyword có nằm trong tên hoa hay không.
+        // Cả tên hoa và keyword đều được chuyển về chữ thường bằng hàm toLower() để tìm kiếm không phân biệt hoa thường.
+        if (toLower(flowers[i].name).find(toLower(keyword)) != string::npos) {
+            printFlower(i + 1, flowers[i]); // In ra hoa thỏa mãn điều kiện
+            found = true;
+        }
+    }
+    if (!found) {
+        cout << "Không tìm thấy loài hoa nào có tên chứa từ khóa trên.\n";
+    }
+}
