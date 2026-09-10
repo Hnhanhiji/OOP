@@ -136,3 +136,21 @@ void cau7_CountFlowersByType(Flower flowers[], int N) {
         }
     }
 }
+// Câu 8: Yêu cầu người dùng nhập một phân loại và hiển thị tất cả hoa thuộc phân loại đó
+void cau8_FindFlowersOfGivenType(Flower flowers[], int N) {
+    cin.ignore();
+    string searchType;
+    cout << "Enter type to find: ";
+    getline(cin, searchType);
+
+    cout << "--- Cau 8: Flowers of Type [" << searchType << "] ---\n";
+    printHeader();
+    bool found = false;
+    for (int i = 0; i < N; i++) {
+        if (toLower(flowers[i].type) == toLower(searchType)) {
+            printFlower(i + 1, flowers[i]);
+            found = true;
+        }
+    }
+    if (!found) cout << "No flowers found for type: " << searchType << endl;
+}
