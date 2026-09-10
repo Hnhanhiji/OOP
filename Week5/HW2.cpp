@@ -113,3 +113,26 @@ void cau6_CalculateAveragePrice(Flower flowers[], int N) {
     cout << "--- Cau 6: Average Price ---\n";
     cout << "Average price of all flowers: " << fixed << setprecision(2) << (sumPrice / N) << endl;
 }
+// Câu 7: Đếm xem mỗi phân loại (Type) xuất hiện bao nhiêu lần trong danh sách
+void cau7_CountFlowersByType(Flower flowers[], int N) {
+    cout << "--- Cau 7: Count Flowers by Type ---\n";
+    string visited[20]; // Mảng phụ để đánh dấu các phân loại đã được đếm
+    int visitedCount = 0;
+    for (int i = 0; i < N; i++) {
+        bool alreadyCounted = false;
+        for (int j = 0; j < visitedCount; j++) {
+            if (toLower(flowers[i].type) == toLower(visited[j])) {
+                alreadyCounted = true;
+                break;
+            }
+        }
+        if (!alreadyCounted) {
+            int count = 0;
+            for (int k = 0; k < N; k++) {
+                if (toLower(flowers[k].type) == toLower(flowers[i].type)) count++;
+            }
+            cout << "- Type [" << flowers[i].type << "]: " << count << " flower(s)\n";
+            visited[visitedCount++] = flowers[i].type; // Lưu lại để không đếm trùng lần sau
+        }
+    }
+}
