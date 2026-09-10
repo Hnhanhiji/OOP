@@ -201,6 +201,21 @@ for (int i = 0; i < numStudents; i++) {
 if (!firstFailingFound) {
 	cout << "No failing students found." << endl;
 }
+	// Compare Adjacent Students
+cout << "Comparing adjacent students:" << endl;
+for (int i = 0; i < numStudents - 1; i++) {
+	if (scores[i] > scores[i + 1]) {
+		cout << "Student " << (i + 1) << " (" << scores[i] << ") has a higher score than Student " << (i + 2) << " (" << scores[i + 1] << ")" << endl;
+	}
+	else if (scores[i] < scores[i + 1]) {
+		cout << "Student " << (i + 1) << " (" << scores[i] << ") has a lower score than Student " << (i + 2) << " (" << scores[i + 1] << ")" << endl;
+
+	}
+	else {
+		cout << "Student " << (i + 1) << " (" << scores[i] << ") has the same score as Student " << (i + 2) << " (" << scores[i + 1] << ")" << endl;
+	}
+
+}	
 
 
     return 0;
