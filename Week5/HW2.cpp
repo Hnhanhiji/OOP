@@ -95,3 +95,12 @@ void cau4_FindLargestQuantity(Flower flowers[], int N) {
         if (flowers[i].quantity == maxQty) printFlower(i + 1, flowers[i]);
     }
 }
+// Câu 5: Tính tổng số lượng của tất cả các loài hoa cộng lại
+void cau5_CalculateTotalQuantity(Flower flowers[], int N) {
+    int totalQty = 0;
+    for (int i = 0; i < N; i++) {
+        totalQty += flowers[i].quantity;
+    }
+    cout << "--- Cau 5: Total Quantity ---\n";
+    cout << "Total quantity of all flowers: " << totalQty << endl;
+}
