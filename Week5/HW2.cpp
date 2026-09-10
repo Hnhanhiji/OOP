@@ -154,3 +154,21 @@ void cau8_FindFlowersOfGivenType(Flower flowers[], int N) {
     }
     if (!found) cout << "No flowers found for type: " << searchType << endl;
 }
+// Câu 9: Tìm kiếm hoa theo tên chính xác (Không phân biệt hoa thường)
+void cau9_SearchByName(Flower flowers[], int N) {
+    cin.ignore();
+    string searchName;
+    cout << "Enter flower name to search: ";
+    getline(cin, searchName);
+    
+    cout << "--- Cau 9: Search Result for [" << searchName << "] ---\n";
+    printHeader();
+    bool found = false;
+    for (int i = 0; i < N; i++) {
+        if (toLower(flowers[i].name) == toLower(searchName)) {
+            printFlower(i + 1, flowers[i]);
+            found = true;
+        }
+    }
+    if (!found) cout << "Flower not found.\n";
+}
