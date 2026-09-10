@@ -188,6 +188,20 @@ int main()
 			cout << i << ": " << frequency[i] << endl;
 		}
 	}
+	//Find First Failing Student
+bool firstFailingFound = false;
+for (int i = 0; i < numStudents; i++) {
+	if (scores[i] < 5.0) {
+		cout << "First failing student: Student " << (i + 1) << "
+			with score " << scores[i] << endl;
+			firstFailingFound = true;
+		break;
+	}
+}
+if (!firstFailingFound) {
+	cout << "No failing students found." << endl;
+}
+
 
     return 0;
 }
