@@ -198,3 +198,16 @@ void cau11_CountFlowersWithLowQuantity(Flower flowers[], int N) {
     cout << "--- Cau 11: Low Quantity Count (< 5) ---\n";
     cout << "Number of flowers with quantity < 5: " << countLow << endl;
 }
+// Câu 12: Đếm số lượng hoa nằm trong khoảng giá [min, max] do người dùng nhập
+void cau12_CountFlowersInPriceRange(Flower flowers[], int N) {
+    double minP, maxP;
+    cout << "Enter minimum price: "; cin >> minP;
+    cout << "Enter maximum price: "; cin >> maxP;
+    
+    int countRange = 0;
+    for (int i = 0; i < N; i++) {
+        if (flowers[i].price >= minP && flowers[i].price <= maxP) countRange++;
+    }
+    cout << "--- Cau 12: Price Range Count ---\n";
+    cout << "Result: There are " << countRange << " flower(s) in that price range.\n";
+}
