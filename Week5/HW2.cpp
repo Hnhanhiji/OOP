@@ -265,3 +265,19 @@ void cau16_SortFlowersByName(Flower flowers[], int N) {
     printHeader();
     for (int i = 0; i < N; i++) printFlower(i + 1, temp[i]);
 }
+// Câu 17: Tìm top 3 bông hoa đắt nhất tiệm (Sắp xếp giảm dần rồi lấy 3 phần tử đầu)
+void cau17_FindTop3MostExpensive(Flower flowers[], int N) {
+    Flower temp[20];
+    for (int i = 0; i < N; i++) temp[i] = flowers[i];
+
+    // Sắp xếp giảm dần theo giá
+    for (int i = 0; i < N - 1; i++) {
+        for (int j = 0; j < N - i - 1; j++) {
+            if (temp[j].price < temp[j + 1].price) swap(temp[j], temp[j + 1]);
+        }
+    }
+    cout << "--- Cau 17: Top 3 Most Expensive Flowers ---\n";
+    printHeader();
+    int limit = (N < 3) ? N : 3; // Phòng trường hợp N nhỏ hơn 3
+    for (int i = 0; i < limit; i++) printFlower(i + 1, temp[i]);
+}
