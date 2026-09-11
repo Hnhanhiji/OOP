@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <string>
 using namespace std;
 // void showelcome
 void  showWelcome()
@@ -17,16 +18,28 @@ void showMenu()
 	cout << "2. Show Statistics\n";
 	cout << "3. Exit\n";
 }
-
+// void showStudentsName(string name)
+void showStudentsName(string name){ 
+	
+	cout << "hello, " << name << "!" << endl;
+	cout << "Student Name: " << name << endl;
+}
 
 int main()
 {	// call the fucntion showWelcome
 	showWelcome();
     showMenu();
-
 	cout << "Let's get started!\n";
+	string studentName;
+	cout << "enter your name:";
+	getline(cin, studentName);
+	showStudentsName(studentName);
+
 	return 0;
 }
+
+
+
 
 
 
