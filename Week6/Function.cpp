@@ -1,4 +1,4 @@
-\// Function.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// Function.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
@@ -30,8 +30,14 @@ void  printStudentInfo(string name, int id) {
 	cout << "Name  :" << name << endl;
 	cout << "id  :" << id << endl;
 	cout << " ------------" << endl;
-}
+} 
+//double calculateAverage
+double calculateAverage(double score1, double score2) {
+	double sum = score1 + score2;
+	double avg = sum / 2.0;
+	return avg;
 
+}
 
 int main()
 {	// call the fucntion showWelcome
@@ -49,8 +55,20 @@ int main()
 	cin >> studentID;
 	printStudentInfo(studentName, studentID);
 
+	// step 4
+	double math, english;
+	cout << "enter math score: ";
+	cin >> math;
+	cout << " enter english score: ";
+	cin >> english;
+	//call the function
+	double average = calculateAverage(math, english);
+	cout << " Average score =" << average << endl;
+
 	return 0;
 }
+
+
 
 
 
