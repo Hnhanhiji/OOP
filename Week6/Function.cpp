@@ -1,4 +1,4 @@
-// Function.cpp : This file contains the 'main' function. Program execution begins and ends there.
+\// Function.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <iostream>
@@ -23,7 +23,15 @@ void showStudentsName(string name){
 	
 	cout << "hello, " << name << "!" << endl;
 	cout << "Student Name: " << name << endl;
+} 
+// void printstudentInfo(string name)
+void  printStudentInfo(string name, int id) {
+	cout << " ------------" << endl;
+	cout << "Name  :" << name << endl;
+	cout << "id  :" << id << endl;
+	cout << " ------------" << endl;
 }
+
 
 int main()
 {	// call the fucntion showWelcome
@@ -31,12 +39,20 @@ int main()
     showMenu();
 	cout << "Let's get started!\n";
 	string studentName;
+	int studentID;
 	cout << "enter your name:";
 	getline(cin, studentName);
 	showStudentsName(studentName);
+	cout << "enter student name:";
+	getline(cin, studentName);
+	cout << "enter student id: ";
+	cin >> studentID;
+	printStudentInfo(studentName, studentID);
 
 	return 0;
 }
+
+
 
 
 
