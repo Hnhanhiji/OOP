@@ -3,7 +3,50 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+
 using namespace std;
+// khai bao kieu cau truc
+struct ScoreInfo {
+	double sum;
+	double average;
+	int count;
+	double maxScore;
+	double minScore;
+
+
+
+};
+// gọi hàm
+ScoreInfo analyzeScores(const vector<double>& scores) {
+	ScoreInfo result;
+	result.sum = 0;
+	result.count = scores.size();
+
+	if (result.count == 0) {
+		result.average = 0;
+		result.maxScore = 0;
+		result.minScore = 0;
+		return result;
+	}
+
+	result.minScore = scores[0];
+	result.maxScore = scores[0];
+
+	for (double s : scores) {
+		result.sum += s;
+		if (s > result.maxScore) result.maxScore = s;
+		if (s < result.minScore) result.minScore = s;
+	}
+
+	result.average = result.sum / result.count;
+	return result; // return all results at once
+}
+
+
+
+
+
 // void showelcome
 void  showWelcome()
 {
@@ -64,13 +107,19 @@ int main()
 	//call the function
 	double average = calculateAverage(math, english);
 	cout << " Average score =" << average << endl;
+	// bước 5
+	vector<double> scores = { 8.5, 7.0 , 9.5, 6.0, 8.0 };
+	ScoreInfo info = analyzeScores(scores);
+	cout << "Total: " << info.sum << endl;
+	cout << "Average: " << info.average << endl;
+	cout << "Max score: " << info.maxScore << endl;
+	cout << "Min score: " << info.minScore << endl;
+
+
+
 
 	return 0;
 }
-
-
-
-
 
 
 
