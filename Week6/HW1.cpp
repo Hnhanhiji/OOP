@@ -112,6 +112,22 @@ void countScoreFrequency(double scores[], int size) {
     }
     cout << "Score " << target << " appears " << count << " times.\n\n";
 }
+// 7. Find First Failing Student (Tìm học sinh trượt đầu tiên < 5.0)
+// ============================================================================
+void findFirstFailingStudent(double scores[], int size) {
+    cout << "--- 7. Find First Failing Student ---\n";
+    bool hasFailing = false;
+    for (int i = 0; i < size; i++) {
+        if (scores[i] < 5.0) {
+            cout << "First failing student:\nStudent " << i + 1 << ": " << scores[i] << "\n\n";
+            hasFailing = true;
+            break; // Thoát ngay khi tìm thấy người đầu tiên
+        }
+    }
+    if (!hasFailing) {
+        cout << "All students pass!\n\n";
+    }
+}
 
 
 int main()
@@ -129,9 +145,12 @@ int main()
     findSecondHighestScore(studentScores, MAX_STUDENTS);
     searchForScore(studentScores, MAX_STUDENTS);
     countScoreFrequency(studentScores, MAX_STUDENTS);
+    findFirstFailingStudent(studentScores, MAX_STUDENTS);
 
 
 }
+
+
 
 
 
