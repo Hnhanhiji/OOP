@@ -37,6 +37,26 @@ void countStudentsInRange(double scores[], int size) {
     }
     cout << "Students in range: " << count << "\n\n";
 }
+// 3. Find Students Above Average (Tìm học sinh trên điểm trung bình)
+// ============================================================================
+void findStudentsAboveAverage(double scores[], int size) {
+    double sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += scores[i];
+    }
+    double average = sum / size;
+
+    cout << "--- 3. Find Students Above Average ---\n";
+    cout << "Average score: " << fixed << setprecision(2) << average << "\n";
+    cout << "Students above average:\n";
+    for (int i = 0; i < size; i++) {
+        if (scores[i] > average) {
+            cout << "Student " << i + 1 << ": " << scores[i] << "\n";
+        }
+    }
+    cout << "\n";
+}
+
 
 int main()
 {
@@ -49,8 +69,9 @@ int main()
     // Gọi lần lượt các hàm bài tập
     countExcellentStudents(studentScores, MAX_STUDENTS);
     countStudentsInRange(studentScores, MAX_STUDENTS);
-
+    findStudentsAboveAverage(studentScores, MAX_STUDENTS);
 }
+
 
 
 
