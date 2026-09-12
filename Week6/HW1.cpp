@@ -96,7 +96,22 @@ void searchForScore(double scores[], int size) {
     }
     cout << "\n";
 }
+// 6. Count Score Frequency (Đếm tần suất xuất hiện của một điểm số)
+// ============================================================================
+void countScoreFrequency(double scores[], int size) {
+    double target;
+    cout << "--- 6. Count Score Frequency ---\n";
+    cout << "Enter score: ";
+    cin >> target;
 
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (scores[i] == target) {
+            count++;
+        }
+    }
+    cout << "Score " << target << " appears " << count << " times.\n\n";
+}
 
 
 int main()
@@ -113,10 +128,13 @@ int main()
     findStudentsAboveAverage(studentScores, MAX_STUDENTS);
     findSecondHighestScore(studentScores, MAX_STUDENTS);
     searchForScore(studentScores, MAX_STUDENTS);
-
+    countScoreFrequency(studentScores, MAX_STUDENTS);
 
 
 }
+
+
+
 
 
 
