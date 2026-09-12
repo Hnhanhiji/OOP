@@ -20,7 +20,23 @@ void countExcellentStudents(double scores[], int size) {
     cout << "-1. Count Excellent Students\n";
     cout << "Number of excellent students: " << count << "\n\n";
 }
+// 2. Count student in a score range
+void countStudentsInRange(double scores[], int size) {
+    double a, b;
+    cout << "--- 2. Count Students in a Score Range ---\n";
+    cout << "Enter minimum score: ";
+    cin >> a;
+    cout << "Enter maximum score: ";
+    cin >> b;
 
+    int count = 0;
+    for (int i = 0; i < size; i++) {
+        if (scores[i] >= a && scores[i] <= b) {
+            count++;
+        }
+    }
+    cout << "Students in range: " << count << "\n\n";
+}
 
 int main()
 {
@@ -32,9 +48,12 @@ int main()
     cout << "\n\n";
     // Gọi lần lượt các hàm bài tập
     countExcellentStudents(studentScores, MAX_STUDENTS);
-
+    countStudentsInRange(studentScores, MAX_STUDENTS);
 
 }
+
+
+
 
 
 
