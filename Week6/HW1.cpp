@@ -160,6 +160,29 @@ void findLongestPassStreak(double scores[], int size) {
     cout << "--- 9. Find the Longest Pass Streak ---\n";
     cout << "Longest pass streak: " << maxStreak << " students\n\n";
 }
+// 10. Create a Score Distribution (Vẽ biểu đồ phân phối điểm số)
+// ============================================================================
+void createScoreDistribution(double scores[], int size) {
+    int r1 = 0, r2 = 0, r3 = 0, r4 = 0, r5 = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (scores[i] >= 0 && scores[i] < 5) r1++;
+        else if (scores[i] >= 5 && scores[i] < 6.5) r2++;
+        else if (scores[i] >= 6.5 && scores[i] < 8) r3++;
+        else if (scores[i] >= 8 && scores[i] < 9) r4++;
+        else if (scores[i] >= 9 && scores[i] <= 10) r5++;
+    }
+
+    cout << "--- 10. Create a Score Distribution ---\n";
+    cout << "===== SCORE DISTRIBUTION =====\n";
+
+    cout << "0 - <5   : "; for (int i = 0; i < r1; i++) cout << "*"; cout << " (" << r1 << ")\n";
+    cout << "5 - <6.5 : "; for (int i = 0; i < r2; i++) cout << "*"; cout << " (" << r2 << ")\n";
+    cout << "6.5 - <8 : "; for (int i = 0; i < r3; i++) cout << "*"; cout << " (" << r3 << ")\n";
+    cout << "8 - <9   : "; for (int i = 0; i < r4; i++) cout << "*"; cout << " (" << r4 << ")\n";
+    cout << "9 - 10   : "; for (int i = 0; i < r5; i++) cout << "*"; cout << " (" << r5 << ")\n\n";
+}
+
 
 
 int main()
@@ -180,9 +203,10 @@ int main()
     findFirstFailingStudent(studentScores, MAX_STUDENTS);
     compareAdjacentStudents(studentScores, MAX_STUDENTS);
     findLongestPassStreak(studentScores, MAX_STUDENTS);
-
+    createScoreDistribution(studentScores, MAX_STUDENTS);
 
 }
+
 
 
 
