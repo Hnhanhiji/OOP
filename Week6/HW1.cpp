@@ -139,7 +139,27 @@ void compareAdjacentStudents(double scores[], int size) {
     }
     cout << "\n";
 }
+// 9. Find the Longest Pass Streak (Tìm chuỗi học sinh đỗ liên tiếp dài nhất)
+// ============================================================================
+void findLongestPassStreak(double scores[], int size) {
+    int maxStreak = 0;
+    int currentStreak = 0;
 
+    for (int i = 0; i < size; i++) {
+        if (scores[i] >= 5.0) {
+            currentStreak++;
+            if (currentStreak > maxStreak) {
+                maxStreak = currentStreak;
+            }
+        }
+        else {
+            currentStreak = 0; // Đứt chuỗi, reset lại
+        }
+    }
+
+    cout << "--- 9. Find the Longest Pass Streak ---\n";
+    cout << "Longest pass streak: " << maxStreak << " students\n\n";
+}
 
 
 int main()
@@ -159,9 +179,12 @@ int main()
     countScoreFrequency(studentScores, MAX_STUDENTS);
     findFirstFailingStudent(studentScores, MAX_STUDENTS);
     compareAdjacentStudents(studentScores, MAX_STUDENTS);
+    findLongestPassStreak(studentScores, MAX_STUDENTS);
 
 
 }
+
+
 
 
 
