@@ -76,6 +76,28 @@ void findSecondHighestScore(double scores[], int size) {
     cout << "Highest score: " << highest << "\n";
     cout << "Second highest score: " << secondHighest << "\n\n";
 }
+// 5. Search for a Score (Tìm vị trí của một điểm số)
+// ============================================================================
+void searchForScore(double scores[], int size) {
+    double target;
+    cout << "--- 5. Search for a Score ---\n";
+    cout << "Enter score to search: ";
+    cin >> target;
+
+    bool found = false;
+    for (int i = 0; i < size; i++) {
+        if (scores[i] == target) {
+            cout << "Found at:\nStudent " << i + 1 << "\n";
+            found = true;
+        }
+    }
+    if (!found) {
+        cout << "Score " << target << " not found in the array.\n";
+    }
+    cout << "\n";
+}
+
+
 
 int main()
 {
@@ -90,8 +112,14 @@ int main()
     countStudentsInRange(studentScores, MAX_STUDENTS);
     findStudentsAboveAverage(studentScores, MAX_STUDENTS);
     findSecondHighestScore(studentScores, MAX_STUDENTS);
-    
+    searchForScore(studentScores, MAX_STUDENTS);
+
+
+
 }
+
+
+
 
 
 
