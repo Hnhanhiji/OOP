@@ -128,6 +128,18 @@ void findFirstFailingStudent(double scores[], int size) {
         cout << "All students pass!\n\n";
     }
 }
+// 8. Compare Adjacent Students (So sánh điểm 2 học sinh đứng cạnh nhau)
+// ============================================================================
+void compareAdjacentStudents(double scores[], int size) {
+    cout << "--- 8. Compare Adjacent Students ---\n";
+    for (int i = 1; i < size; i++) {
+        if (scores[i] > scores[i - 1]) {
+            cout << "Student " << i + 1 << " improved compared to Student " << i << "\n";
+        }
+    }
+    cout << "\n";
+}
+
 
 
 int main()
@@ -146,9 +158,12 @@ int main()
     searchForScore(studentScores, MAX_STUDENTS);
     countScoreFrequency(studentScores, MAX_STUDENTS);
     findFirstFailingStudent(studentScores, MAX_STUDENTS);
+    compareAdjacentStudents(studentScores, MAX_STUDENTS);
 
 
 }
+
+
 
 
 
