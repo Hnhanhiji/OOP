@@ -20,3 +20,17 @@ void task5_calculateTotalQuantity(Flower flowers[], int N) {
     }
     cout << "Tong so luong tat ca cac bong hoa: " << total << endl;
 }
+// Task 6: Tinh gia trung binh cua cac loai hoa
+void task6_calculateAveragePrice(Flower flowers[], int N) {
+    cout << "\n--- Task 6: Gia trung binh ---\n";
+    if (N == 0) {
+        cout << "Gia trung binh: 0\n";
+        return;
+    }
+    double sum = 0;
+    for (int i = 0; i < N; i++) {
+        sum += flowers[i].price;
+    }
+    cout << "Gia trung binh cua cac loai hoa: " << fixed << setprecision(2) << (sum / N) << endl;
+}
+
