@@ -123,4 +123,18 @@ void task11_countLowQuantity(Flower flowers[], int N) {
     }
     cout << "So luong hoa co so luong ton kho < 5 la: " << count << endl;
 }
+// Task 12: Dem so hoa trong mot khoang gia nhat dinh
+void task12_countFlowersInPriceRange(Flower flowers[], int N) {
+    cout << "\n--- Task 12: Dem hoa trong khoang gia ---\n";
+    double minPrice, maxPrice;
+    cout << "Nhap gia thap nhat: "; cin >> minPrice;
+    cout << "Nhap gia cao nhat: "; cin >> maxPrice;
 
+    int count = 0;
+    for (int i = 0; i < N; i++) {
+        if (flowers[i].price >= minPrice && flowers[i].price <= maxPrice) {
+            count++;
+        }
+    }
+    cout << "So luong hoa trong khoang gia [" << minPrice << ", " << maxPrice << "] la: " << count << endl;
+}
