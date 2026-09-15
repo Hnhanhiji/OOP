@@ -238,3 +238,42 @@ void task18_findFlowersContainingKeyword(Flower flowers[], int N) {
         cout << "Khong co hoa nao chua tu khoa: \"" << keyword << "\"\n";
     }
 }
+// Task 19: Calculate average quantity by type
+// Tính và hiển thị số lượng tồn kho trung bình cho từng loại (type) hoa
+void task19_calculateAverageQuantityByType(Flower flowers[], int N) {
+    cout << "\n--- Task 19: So luong hoa trung binh theo loai ---\n";
+    if (N == 0) return;
+
+    string uniqueTypes[20]; // Lưu danh sách các loại hoa không trùng nhau
+    int totalQty[20] = {0};   // Tổng số lượng hoa của từng loại
+    int typeCounts[20] = {0}; // Số lượng dòng dữ liệu thuộc loại đó để tính trung bình
+    int typeCount = 0;        // Số lượng loại hoa độc nhất tìm được
+
+    // Thuật toán gom nhóm dữ liệu sử dụng mảng tĩnh
+    for (int i = 0; i < N; i++) {
+        bool isExisted = false;
+        for (int j = 0; j < typeCount; j++) {
+            if (toLower(flowers[i].type) == toLower(uniqueTypes[j])) {
+                totalQty[j] += flowers[i].quantity;
+                typeCounts[j]++;
+                isExisted = true;
+                break;
+            }
+        }
+        // Nếu loại hoa chưa có trong danh sách uniqueTypes thì thêm mới vào
+        if (!isExisted) {
+            uniqueTypes[typeCount] = flowers[i].type;
+            totalQty[typeCount] = flowers[i].quantity;
+            typeCounts[typeCount] = 1;
+            typeCount++;
+        }
+    }
+
+    // Tính toán và hiển thị kết quả trung bình
+    for (int i = 0; i < typeCount; i++) {
+        double avg = (double)totalQty[i] / typeCounts[i];
+        cout << "+ Loai \"" << uniqueTypes[i] << "\" co so luong trung binh: " 
+             << fixed << setprecision(2) << avg << endl;
+    }
+}
+
