@@ -183,4 +183,21 @@ void task15_sortFlowersByPriceAscending(Flower flowers[], int N) {
     printHeader();
     for (int i = 0; i < N; i++) printFlower(temp[i]);
 }
+// Task 16: Sap xep hoa theo ten alphabet (A -> Z)
+void task16_sortFlowersByNameAZ(Flower flowers[], int N) {
+    cout << "\n--- Task 16: Sap xep hoa theo ten (A -> Z) ---\n";
+    Flower temp[20];
+    for(int i=0; i<N; i++) temp[i] = flowers[i];
+
+    for (int i = 0; i < N - 1; i++) {
+        for (int j = 0; j < N - i - 1; j++) {
+            if (toLower(temp[j].name) > toLower(temp[j + 1].name)) {
+                swap(temp[j], temp[j + 1]);
+            }
+        }
+    }
+    printHeader();
+    for (int i = 0; i < N; i++) printFlower(temp[i]);
+}
+
 
