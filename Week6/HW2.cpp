@@ -74,3 +74,16 @@ void task1_displayAll(Flower flowers[], int N) {
         printFlower(flowers[i]);
     }
 }
+// Task 2: Tim bong hoa dat nhat
+void task2_findMostExpensive(Flower flowers[], int N) {
+    cout << "\n--- Task 2: Hoa dat nhat ---\n";
+    if (N == 0) return;
+    int maxIdx = 0;
+    for (int i = 1; i < N; i++) {
+        if (flowers[i].price > flowers[maxIdx].price) {
+            maxIdx = i;
+        }
+    }
+    printHeader();
+    printFlower(flowers[maxIdx]);
+}
