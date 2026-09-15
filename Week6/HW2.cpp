@@ -212,4 +212,29 @@ void task16_sortFlowersByNameAZ(Flower flowers[], int N) {
          }
      }printHeader();int limit = min(3, N);for (int i = 0; i < limit; i++) { printFlower(temp[i]); }
  }
+// Task 18: Find flowers with name containing a keyword
+// Yêu cầu người dùng nhập từ khóa và hiển thị tất cả các bông hoa có tên chứa từ khóa đó
+void task18_findFlowersContainingKeyword(Flower flowers[], int N) {
+    cout << "\n--- Task 18: Tim hoa chua tu khoa ---\n";
+    string keyword;
+    cout << "Nhap tu khoa can tim (vi du: 'rose'): ";
+    cin.ignore(); // Xóa bộ nhớ đệm trước khi dùng getline
+    getline(cin, keyword);
 
+    // Chuyển từ khóa về chữ thường để so sánh không phân biệt hoa thường
+    string lowerKeyword = toLower(keyword);
+    bool found = false;
+
+    printHeader();
+    for (int i = 0; i < N; i++) {
+        // Nếu tìm thấy từ khóa xuất hiện trong tên bông hoa
+        if (toLower(flowers[i].name).find(lowerKeyword) != string::npos) {
+            printFlower(flowers[i]);
+            found = true;
+        }
+    }
+
+    if (!found) {
+        cout << "Khong co hoa nao chua tu khoa: \"" << keyword << "\"\n";
+    }
+}
