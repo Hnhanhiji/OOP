@@ -276,4 +276,53 @@ void task19_calculateAverageQuantityByType(Flower flowers[], int N) {
              << fixed << setprecision(2) << avg << endl;
     }
 }
+// Task 20: Generate a simple report
+// Xuất báo cáo tổng hợp: tổng số loại hoa, tổng số lượng trong kho, giá trung bình và thống kê số lượng theo loại
+void task20_generateSimpleReport(Flower flowers[], int N) {
+    cout << "\n--- Task 20: Bao cao don gian ---\n";
+    int totalFlowers = N;
+    int totalQuantity = 0;
+    double sumPrice = 0;
+
+    for (int i = 0; i < N; i++) {
+        totalQuantity += flowers[i].quantity;
+        sumPrice += flowers[i].price;
+    }
+    double avgPrice = (N > 0) ? (sumPrice / N) : 0;
+
+    cout << "====================================\n";
+    cout << "        BAO CAO CUA HANG HOA        \n";
+    cout << "====================================\n";
+    cout << "- Tong so dong du lieu hoa: " << totalFlowers << endl;
+    cout << "- Tong so luong hoa trong kho: " << totalQuantity << endl;
+    cout << "- Gia trung binh cua cac loai hoa: " << fixed << setprecision(2) << avgPrice << endl;
+    cout << "------------------------------------\n";
+    cout << "Chi tiet so luong theo tung loai:\n";
+    
+    // Sử dụng lại logic đếm loại tương tự Task 19 để in thống kê
+    string uniqueTypes[20];
+    int typeCounts[20] = {0};
+    int typeCount = 0;
+
+    for (int i = 0; i < N; i++) {
+        bool isExisted = false;
+        for (int j = 0; j < typeCount; j++) {
+            if (toLower(flowers[i].type) == toLower(uniqueTypes[j])) {
+                typeCounts[j] += flowers[i].quantity; // Cộng dồn số lượng tồn kho
+                isExisted = true;
+                break;
+            }
+        }
+        if (!isExisted) {
+            uniqueTypes[typeCount] = flowers[i].type;
+            typeCounts[typeCount] = flowers[i].quantity;
+            typeCount++;
+        }
+    }
+
+    for (int i = 0; i < typeCount; i++) {
+        cout << "  + Loai \"" << uniqueTypes[i] << "\" co tong so luong: " << typeCounts[i] << " bong\n";
+    }
+    cout << "====================================\n";
+}
 
