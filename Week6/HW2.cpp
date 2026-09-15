@@ -60,4 +60,22 @@ void task7_countFlowersByType(Flower flowers[], int N) {
         cout << "Loai \"" << uniqueTypes[i] << "\": " << typeCounts[i] << " dong\n";
     }
 }
+// Task 8: Tim tat ca cac bong hoa thuoc loai duoc nhap vao
+void task8_findAllFlowersOfGivenType(Flower flowers[], int N) {
+    cout << "\n--- Task 8: Tim hoa theo loai nhap vao ---\n";
+    string targetType;
+    cout << "Nhap loai hoa can tim: ";
+    cin.ignore();
+    getline(cin, targetType);
+
+    printHeader();
+    bool found = false;
+    for (int i = 0; i < N; i++) {
+        if (toLower(flowers[i].type) == toLower(targetType)) {
+            printFlower(flowers[i]);
+            found = true;
+        }
+    }
+    if (!found) cout << "Khong tim thay hoa nao thuoc loai nay.\n";
+}
 
