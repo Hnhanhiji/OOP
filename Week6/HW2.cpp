@@ -325,4 +325,37 @@ void task20_generateSimpleReport(Flower flowers[], int N) {
     }
     cout << "====================================\n";
 }
+int main() {
+    Flower flowers[20];
+    int N = 0;
+
+    cout << "=== CHUONG TRINH QUAN LY CUA HANG HOA ===\n";
+    
+    // Nhập dữ liệu đầu vào ban đầu theo các ràng buộc
+    inputFlowers(flowers, N);
+
+    // Chạy tuần tự và hiển thị kết quả từ Task 1 đến Task 20 để kiểm tra
+    task1_displayAll(flowers, N);
+    task2_findMostExpensive(flowers, N);
+    task3_findCheapest(flowers, N);
+    task4_findLargestQuantity(flowers, N);
+    task5_calculateTotalQuantity(flowers, N);
+    task6_calculateAveragePrice(flowers, N);
+    task7_countFlowersByType(flowers, N);
+    task8_findAllFlowersOfGivenType(flowers, N);
+    task9_searchByName(flowers, N);
+    task10_checkIfFlowerExists(flowers, N);
+    task11_countLowQuantity(flowers, N);
+    task12_countFlowersInPriceRange(flowers, N);
+    task13_calculateTotalValue(flowers, N);
+    task14_findMostValuable(flowers, N);
+    task15_sortFlowersByPriceAscending(flowers, N);
+    task16_sortFlowersByNameAZ(flowers, N);
+    task17_findTop3MostExpensive(flowers, N);
+    task18_findFlowersContainingKeyword(flowers, N);
+    task19_calculateAverageQuantityByType(flowers, N);
+    task20_generateSimpleReport(flowers, N);
+
+    return 0;
+}
 
