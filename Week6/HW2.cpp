@@ -78,4 +78,22 @@ void task8_findAllFlowersOfGivenType(Flower flowers[], int N) {
     }
     if (!found) cout << "Khong tim thay hoa nao thuoc loai nay.\n";
 }
+// Task 9: Tim kiem hoa theo ten va hien thi thong tin
+void task9_searchByName(Flower flowers[], int N) {
+    cout << "\n--- Task 9: Tim kiem hoa theo ten ---\n";
+    string targetName;
+    cout << "Nhap ten hoa can tim thong tin: ";
+    getline(cin, targetName);
+
+    bool found = false;
+    for (int i = 0; i < N; i++) {
+        if (toLower(flowers[i].name) == toLower(targetName)) {
+            if (!found) printHeader();
+            printFlower(flowers[i]);
+            found = true;
+        }
+    }
+    if (!found) cout << "Khong tim thay thong tin cho hoa nay.\n";
+}
+
 
