@@ -147,3 +147,22 @@ void task13_calculateTotalValue(Flower flowers[], int N) {
     }
     cout << "Tong gia tri (price * quantity) cua kho hoa: " << totalValue << endl;
 }
+// Task 14: Tim bong hoa co gia tri lon nhat
+void task14_findMostValuable(Flower flowers[], int N) {
+    cout << "\n--- Task 14: Hoa co gia tri lon nhat ---\n";
+    if (N == 0) return;
+    int maxIdx = 0;
+    double maxValue = flowers[0].price * flowers[0].quantity;
+
+    for (int i = 1; i < N; i++) {
+        double currentValue = flowers[i].price * flowers[i].quantity;
+        if (currentValue > maxValue) {
+            maxValue = currentValue;
+            maxIdx = i;
+        }
+    }
+    printHeader();
+    printFlower(flowers[maxIdx]);
+    cout << "-> Tong gia tri lon nhat: " << maxValue << endl;
+}
+
