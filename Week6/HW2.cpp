@@ -95,5 +95,21 @@ void task9_searchByName(Flower flowers[], int N) {
     }
     if (!found) cout << "Khong tim thay thong tin cho hoa nay.\n";
 }
+// Task 10: Kiem tra xem hoa co ton tai hay khong (Tra ve Yes/No)
+void task10_checkIfFlowerExists(Flower flowers[], int N) {
+    cout << "\n--- Task 10: Kiem tra hoa ton tai (Yes/No) ---\n";
+    string targetName;
+    cout << "Nhap ten hoa can kiem tra: ";
+    getline(cin, targetName);
 
+    bool exists = false;
+    for (int i = 0; i < N; i++) {
+        if (toLower(flowers[i].name) == toLower(targetName)) {
+            exists = true;
+            break;
+        }
+    }
+    if (exists) cout << "Ket qua: Yes\n";
+    else cout << "Ket qua: No\n";
+}
 
