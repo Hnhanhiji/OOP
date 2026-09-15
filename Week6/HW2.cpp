@@ -138,3 +138,12 @@ void task12_countFlowersInPriceRange(Flower flowers[], int N) {
     }
     cout << "So luong hoa trong khoang gia [" << minPrice << ", " << maxPrice << "] la: " << count << endl;
 }
+// Task 13: Tinh tong gia tri tat ca cac loai hoa (Gia * So luong)
+void task13_calculateTotalValue(Flower flowers[], int N) {
+    cout << "\n--- Task 13: Tong gia tri kho hoa ---\n";
+    double totalValue = 0;
+    for (int i = 0; i < N; i++) {
+        totalValue += (flowers[i].price * flowers[i].quantity);
+    }
+    cout << "Tong gia tri (price * quantity) cua kho hoa: " << totalValue << endl;
+}
