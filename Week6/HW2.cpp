@@ -165,4 +165,22 @@ void task14_findMostValuable(Flower flowers[], int N) {
     printFlower(flowers[maxIdx]);
     cout << "-> Tong gia tri lon nhat: " << maxValue << endl;
 }
+// Task 15: Sap xep hoa theo gia tang dan
+void task15_sortFlowersByPriceAscending(Flower flowers[], int N) {
+    cout << "\n--- Task 15: Sap xep hoa theo gia tang dan ---\n";
+    // Tao mot mang sao chep de tranh thay doi mang goc
+    Flower temp[20];
+    for(int i=0; i<N; i++) temp[i] = flowers[i];
+
+    // Thuc hien Bubble Sort
+    for (int i = 0; i < N - 1; i++) {
+        for (int j = 0; j < N - i - 1; j++) {
+            if (temp[j].price > temp[j + 1].price) {
+                swap(temp[j], temp[j + 1]);
+            }
+        }
+    }
+    printHeader();
+    for (int i = 0; i < N; i++) printFlower(temp[i]);
+}
 
