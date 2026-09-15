@@ -112,4 +112,15 @@ void task10_checkIfFlowerExists(Flower flowers[], int N) {
     if (exists) cout << "Ket qua: Yes\n";
     else cout << "Ket qua: No\n";
 }
+// Task 11: Dem cac bong hoa co so luong thap (< 5)
+void task11_countLowQuantity(Flower flowers[], int N) {
+    cout << "\n--- Task 11: Dem hoa co so luong thap (< 5) ---\n";
+    int count = 0;
+    for (int i = 0; i < N; i++) {
+        if (flowers[i].quantity < 5) {
+            count++;
+        }
+    }
+    cout << "So luong hoa co so luong ton kho < 5 la: " << count << endl;
+}
 
