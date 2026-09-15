@@ -199,5 +199,17 @@ void task16_sortFlowersByNameAZ(Flower flowers[], int N) {
     printHeader();
     for (int i = 0; i < N; i++) printFlower(temp[i]);
 }
+ // Task 17: Tim top 3 bong hoa co gia dat nhat
+ void task17_findTop3MostExpensive(Flower flowers[], int N) {
+     cout << "\n--- Task 17: Top 3 hoa dat nhat ---\n";
+     Flower temp[20];
+     for (int i = 0; i < N; i++) temp[i] = flowers[i];
 
+     // Sap xep gia giam dan
+     for (int i = 0; i < N - 1; i++) {
+         for (int j = 0; j < N - i - 1; j++) {
+           if (temp[j].price < temp[j + 1].price) { swap(temp[j], temp[j + 1]); }
+         }
+     }printHeader();int limit = min(3, N);for (int i = 0; i < limit; i++) { printFlower(temp[i]); }
+ }
 
