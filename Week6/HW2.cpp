@@ -33,4 +33,31 @@ void task6_calculateAveragePrice(Flower flowers[], int N) {
     }
     cout << "Gia trung binh cua cac loai hoa: " << fixed << setprecision(2) << (sum / N) << endl;
 }
+// Task 7: Dem so luong hoa theo tung loai (Type)
+void task7_countFlowersByType(Flower flowers[], int N) {
+    cout << "\n--- Task 7: Dem hoa theo loai ---\n";
+    string uniqueTypes[20];
+    int typeCounts[20] = {0};
+    int typeCount = 0;
+
+    for (int i = 0; i < N; i++) {
+        bool found = false;
+        for (int j = 0; j < typeCount; j++) {
+            if (toLower(flowers[i].type) == toLower(uniqueTypes[j])) {
+                typeCounts[j]++;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            uniqueTypes[typeCount] = flowers[i].type;
+            typeCounts[typeCount] = 1;
+            typeCount++;
+        }
+    }
+
+    for (int i = 0; i < typeCount; i++) {
+        cout << "Loai \"" << uniqueTypes[i] << "\": " << typeCounts[i] << " dong\n";
+    }
+}
 
