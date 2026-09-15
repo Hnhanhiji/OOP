@@ -86,4 +86,17 @@ void task2_findMostExpensive(Flower flowers[], int N) {
     }
     printHeader();
     printFlower(flowers[maxIdx]);
-}
+
+    // Task 3: Tim bong hoa re nhat
+    void task3_findCheapest(Flower flowers[], int N) {
+        cout << "\n--- Task 3: Hoa re nhat ---\n";
+        if (N == 0) return;
+        int minIdx = 0;
+        for (int i = 1; i < N; i++) {
+            if (flowers[i].price < flowers[minIdx].price) {
+                minIdx = i;
+            }
+        }
+        printHeader();
+        printFlower(flowers[minIdx]);
+    }
