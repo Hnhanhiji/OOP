@@ -3,134 +3,161 @@
 
 using namespace std;
 
-// Struct 1: Lưu tài khoản (username và password)
-struct Account {
+// Struct luu tai khoan
+struct User {
     string username;
-    string password;
+    string pwd;
 };
 
-// Struct 2: Lưu thông tin máy tính
+// Struct luu thong tin may tinh
 struct Computer {
     string id;
-    string name;      // Tên máy
-    string os;        // Hệ điều hành
-    Account acc;      // Lồng Struct 1 (Account) vào để chứa username, password
+    string name;
+    string os;
+    User user; 
     string model;
     int year;
 };
 
-// Struct 3: Lưu thông tin phòng Lab
+// Struct luu thong tin phong lab
 struct Lab {
-    string name;              // Tên phòng lab (VD: A5-104)
-    int totalComputers;       // Số lượng máy
-    Computer computers[100];  // Mảng chứa danh sách các máy tính
+    string roomCode;
+    string function;
 };
 
+// Ham nhap thong tin lab va danh sach may tinh
+void inputLabAndComputers(Lab &lab, Computer computers[], int &n) {
+    cout << "=== NHAP THONG TIN PHONG LAB ===\n";
+    cout << "Nhap ma phong: ";
+    getline(cin, lab.roomCode);
+    cout << "Nhap chuc nang phong: ";
+    getline(cin, lab.function);
 
-// 1. Hàm in thông tin của 1 máy tính (trả về void)
-void showComputerInfo(Computer c) {
-    if (c.id == "") {
-        cout << "Khong tim thay thong tin may tinh!" << endl;
-        return;
+    cout << "\nNhap so luong may tinh (1 - 20): ";
+    cin >> n;
+
+    for (int i = 0; i < n; i++) {
+        cout << "\n--- Nhap thong tin may tinh " << (i + 1) << " ---\n";
+        cin.ignore(); // Xoa bo nho dem truoc khi nhap chuoi
+        cout << "ID: ";
+        getline(cin, computers[i].id);
+        cout << "Ten may: ";
+        getline(cin, computers[i].name);
+        cout << "He dieu hanh (OS): ";
+        getline(cin, computers[i].os);
+        cout << "Username: ";
+        getline(cin, computers[i].user.username);
+        cout << "Password: ";
+        getline(cin, computers[i].user.pwd);
+        cout << "Model: ";
+        getline(cin, computers[i].model);
+        cout << "Nam san xuat: ";
+        cin >> computers[i].year;
     }
-    cout << "\n--- THONG TIN MAY TINH ---" << endl;
-    cout << "ID: " << c.id << endl;
-    cout << "Ten may: " << c.name << endl;
-    cout << "He dieu hanh: " << c.os << endl;
-    cout << "Model: " << c.model << endl;
-    cout << "Nam san xuat: " << c.year << endl;
-    cout << "Username: " << c.acc.username << endl;
-    cout << "Password: " << c.acc.password << endl;
 }
 
-// Hàm hiển thị thông tin chung của Phòng Lab
+// Ham in thong tin phong lab
 void showLabInfo(Lab lab) {
-    cout << "PHONG LAB: " << lab.name << endl;
-    cout << "Tong so may tinh: " << lab.totalComputers << endl;
-    cout << "===================================" << endl;
+    cout << "\n=== THONG TIN PHONG LAB ===\n";
+    cout << "Ma phong : " << lab.roomCode << "\n";
+    cout << "Chuc nang: " << lab.function << "\n";
 }
 
-// 2. Hàm tìm máy theo ID và trả về đối tượng Computer
-Computer getComputerInfo(Lab lab, string searchId) {
-    for (int i = 0; i < lab.totalComputers; i++) {
-        if (lab.computers[i].id == searchId) {
-            return lab.computers[i]; // Trả về đúng struct Computer tìm thấy
+// 1) Tim va in thong tin may tinh theo ID (kieu void)
+void getComputerInfo(Computer computers[], int n, string targetId) {
+    bool timThay = false;
+    for (int i = 0; i < n; i++) {
+        if (computers[i].id == targetId) {
+            cout << "\n=== THONG TIN MAY (ID: " << targetId << ") ===\n";
+            cout << "Ten may : " << computers[i].name << "\n";
+            cout << "OS      : " << computers[i].os << "\n";
+            cout << "Username: " << computers[i].user.username << "\n";
+            cout << "Password: " << computers[i].user.pwd << "\n";
+            cout << "Model   : " << computers[i].model << "\n";
+            cout << "Nam     : " << computers[i].year << "\n";
+            timThay = true;
+            break;
         }
     }
-    // Trả về máy rỗng nếu không tìm thấy
-    Computer emptyComp = { "", "", "", {"", ""}, "", 0 };
-    return emptyComp;
+    if (!timThay) {
+        cout << "\nKhong tim thay may tinh co ID: " << targetId << "\n";
+    }
 }
 
-// 3. Hàm trả về nguyên mảng danh sách máy tính
-Computer* getComputerList(Lab& lab) {
-    return lab.computers; // Trả về con trỏ trỏ đến đầu mảng máy tính
-}
-
-// 4. Hàm tìm theo ID nhưng chỉ trả về struct Account (username, password)
-Account getUserAndPassword(Lab lab, string searchId) {
-    for (int i = 0; i < lab.totalComputers; i++) {
-        if (lab.computers[i].id == searchId) {
-            return lab.computers[i].acc; // Trả về struct Account của máy đó
+// 2) Tim va tra ve doi tuong Computer theo ID
+Computer getComputerById(Computer computers[], int n, string targetId) {
+    for (int i = 0; i < n; i++) {
+        if (computers[i].id == targetId) {
+            return computers[i];
         }
     }
-    Account emptyAcc = { "", "" };
-    return emptyAcc;
+    // Tra ve may rong neu khong tim thay
+    Computer rong;
+    rong.id = "";
+    rong.name = "N/A";
+    rong.os = "N/A";
+    rong.model = "N/A";
+    rong.year = 0;
+    return rong;
+}
+
+// 3) Tra ve con tro trỏ den mang cac may tinh
+Computer* getComputers(Computer computers[]) {
+    return computers;
+}
+
+// 4) Lay thong tin Username & Password thong qua ID may
+User getUserAndPassword(Computer computers[], int n, string targetId) {
+    for (int i = 0; i < n; i++) {
+        if (computers[i].id == targetId) {
+            return computers[i].user;
+        }
+    }
+    User uRong;
+    uRong.username = "N/A";
+    uRong.pwd = "N/A";
+    return uRong;
 }
 
 int main() {
-    Lab myLab;
+    Lab lab;
+    Computer computers[20];
+    int n = 0;
 
-    // Nhập thông tin phòng Lab
-    cout << "Nhap ten phong Lab (vi du: A5-104): ";
-    cin >> myLab.name;
-    cout << "Nhap so luong may tinh trong phong: ";
-    cin >> myLab.totalComputers;
+    // Nhap thong tin
+    inputLabAndComputers(lab, computers, n);
+    
+    // In thong tin lab
+    showLabInfo(lab);
 
-    // Nhập thông tin chi tiết từng máy
-    for (int i = 0; i < myLab.totalComputers; i++) {
-        cout << "\n--- Nhap may thu " << i + 1 << " ---" << endl;
-        cout << "ID: "; cin >> myLab.computers[i].id;
-        cout << "Ten may: "; cin >> myLab.computers[i].name;
-        cout << "He dieu hanh: "; cin >> myLab.computers[i].os;
-        cout << "Model: "; cin >> myLab.computers[i].model;
-        cout << "Nam san xuat: "; cin >> myLab.computers[i].year;
-        cout << "Username: "; cin >> myLab.computers[i].acc.username;
-        cout << "Password: "; cin >> myLab.computers[i].acc.password;
+    string searchId;
+
+    // 1) Test ham in thong tin theo ID
+    cout << "\nNhap ID may can in thong tin: ";
+    cin.ignore();
+    getline(cin, searchId);
+    getComputerInfo(computers, n, searchId);
+
+    // 2) Test ham trả về doi tuong Computer
+    cout << "\nNhap ID may can lay doi tuong: ";
+    getline(cin, searchId);
+    Computer comp = getComputerById(computers, n, searchId);
+    cout << "-> Ket qua: Ten = " << comp.name << " | Model = " << comp.model << "\n";
+
+    // 3) Test ham tra ve con tro mang
+    cout << "\n=== DANH SACH MAY TINH (DUYET TUC CON TRO) ===\n";
+    Computer* list = getComputers(computers);
+    for (int i = 0; i < n; i++) {
+        cout << i + 1 << ". ID: " << list[i].id 
+             << " | Ten: " << list[i].name 
+             << " | OS: " << list[i].os << "\n";
     }
 
-    // Hiển thị thông tin tổng quan phòng lab
-    showLabInfo(myLab);
-
-    //  CÂU 1: In thông tin máy đầu tiên ---
-    cout << " YEU CAU 1: In thong tin 1 may tinh bang ham void";
-    showComputerInfo(myLab.computers[0]);  // kh
-
-    // CÂU 2: Tìm và trả về 1 struct Computer theo ID ---
-    string findId;
-    cout << "\n>>> YEU CAU 2: Nhap ID may tinh can tim: ";
-    cin >> findId;
-    Computer foundComp = getComputerInfo(myLab, findId);
-    showComputerInfo(foundComp);
-
-    // CÂU 3: Lấy toàn bộ mảng máy tính và duyệt in ---
-    cout << "\n>>> YEU CAU 3: Lay nguyen mang mays tinh va in danh sach ID:";
-    Computer* list = getComputerList(myLab);
-    for (int i = 0; i < myLab.totalComputers; i++) {
-        cout << "\nMay " << i + 1 << " ID: " << list[i].id << " - Ten: " << list[i].name;
-    }
-    cout << endl;
-
-    //  CÂU 4: Chỉ lấy struct Account (username, password) theo ID ---
-    cout << "\n>>> YEU CAU 4: Nhap ID may can lay User/Pass: ";
-    cin >> findId;
-    Account userPass = getUserAndPassword(myLab, findId);
-    if (userPass.username != "") {
-        cout << "-> User: " << userPass.username << " | Pass: " << userPass.password << endl;
-    }
-    else {
-        cout << "-> Khong tim thấy ID nay!" << endl;
-    }
+    // 4) Test ham lay tai khoan User/Pass
+    cout << "\nNhap ID may can lay tai khoan: ";
+    getline(cin, searchId);
+    User u = getUserAndPassword(computers, n, searchId);
+    cout << "-> Credentials (User: " << u.username << " | Password: " << u.pwd << ")\n";
 
     return 0;
 }
