@@ -26,7 +26,7 @@ struct Lab {
     Computer computers[100];  // Mảng chứa danh sách các máy tính
 };
 
-// =================================================================
+
 // 1. Hàm in thông tin của 1 máy tính (trả về void)
 void showComputerInfo(Computer c) {
     if (c.id == "") {
@@ -45,7 +45,6 @@ void showComputerInfo(Computer c) {
 
 // Hàm hiển thị thông tin chung của Phòng Lab
 void showLabInfo(Lab lab) {
-    cout << "\n===================================" << endl;
     cout << "PHONG LAB: " << lab.name << endl;
     cout << "Tong so may tinh: " << lab.totalComputers << endl;
     cout << "===================================" << endl;
@@ -79,7 +78,6 @@ Account getUserAndPassword(Lab lab, string searchId) {
     return emptyAcc;
 }
 
-// =================================================================
 int main() {
     Lab myLab;
 
@@ -104,18 +102,18 @@ int main() {
     // Hiển thị thông tin tổng quan phòng lab
     showLabInfo(myLab);
 
-    // --- TEST YÊU CẦU 1: In thông tin máy đầu tiên ---
+    //  CÂU 1: In thông tin máy đầu tiên ---
     cout << " YEU CAU 1: In thong tin 1 may tinh bang ham void";
     showComputerInfo(myLab.computers[0]);  // kh
 
-    // --- TEST YÊU CẦU 2: Tìm và trả về 1 struct Computer theo ID ---
+    // CÂU 2: Tìm và trả về 1 struct Computer theo ID ---
     string findId;
     cout << "\n>>> YEU CAU 2: Nhap ID may tinh can tim: ";
     cin >> findId;
     Computer foundComp = getComputerInfo(myLab, findId);
     showComputerInfo(foundComp);
 
-    // --- TEST YÊU CẦU 3: Lấy toàn bộ mảng máy tính và duyệt in ---
+    // CÂU 3: Lấy toàn bộ mảng máy tính và duyệt in ---
     cout << "\n>>> YEU CAU 3: Lay nguyen mang mays tinh va in danh sach ID:";
     Computer* list = getComputerList(myLab);
     for (int i = 0; i < myLab.totalComputers; i++) {
@@ -123,7 +121,7 @@ int main() {
     }
     cout << endl;
 
-    // --- TEST YÊU CẦU 4: Chỉ lấy struct Account (username, password) theo ID ---
+    //  CÂU 4: Chỉ lấy struct Account (username, password) theo ID ---
     cout << "\n>>> YEU CAU 4: Nhap ID may can lay User/Pass: ";
     cin >> findId;
     Account userPass = getUserAndPassword(myLab, findId);
