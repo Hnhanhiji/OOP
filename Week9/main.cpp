@@ -21,7 +21,7 @@ struct Order {
     string status;         // trạng thái (Ví dụ: "Dang xu ly", "Hoan thanh")
 };
 
-struct Restaurant {
+struct Restaurant {//
     string name;           // tên cửa hàng
     string address;        // địa chỉ
     string phone;          // số điện thoại
