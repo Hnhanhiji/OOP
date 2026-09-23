@@ -54,7 +54,7 @@ void addFood(Restaurant &r) {
     cout << "Ma mon: ";
     getline(cin, newFood.id);//
     cout << "Ten mon: ";
-    getline(cin, newFood.name);
+    getline(cin, newFood.name);//
     cout << "Don gia: ";
     cin >> newFood.price;
     cout << "So luong: ";
