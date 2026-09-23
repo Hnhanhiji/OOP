@@ -98,7 +98,7 @@ void searchFood(const Restaurant &r) {
             found = true;
         }
     }
-    if (!found) cout << "Khong tim thay mon an phu hop.\n";
+    if (!found) cout << "Khong tim thay mon an phu hop.\n";//
 }
 
 // 5. Cập nhật giá hoặc số lượng món ăn[cite: 1]
