@@ -5,7 +5,7 @@
 using namespace std;
 
 /// Cấu trúc dữ liệu theo yêu cầu
-struct Food {
+struct Food {//
     string id;       // mã món
     string name;     // tên món
     double price;    // đơn giá
