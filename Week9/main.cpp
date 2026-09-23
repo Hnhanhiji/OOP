@@ -104,7 +104,7 @@ void searchFood(const Restaurant &r) {
 // 5. Cập nhật giá hoặc số lượng món ăn[cite: 1]
 void updateFood(Restaurant &r) {
     string id;
-    cout << "\nNhap ma mon can cap nhat: ";
+    cout << "\nNhap ma mon can cap nhat: "; //
     getline(cin, id);
     
     for (int i = 0; i < r.foodCount; i++) {
