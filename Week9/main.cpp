@@ -66,7 +66,7 @@ void addFood(Restaurant &r) {
     cout << "Da them mon an thanh cong!\n";
 }
 
-// 3. Hiển thị danh sách món ăn[cite: 1]
+// 3. Hiển thị danh sách món ăn[cite: 1]//
 void displayFoods(const Restaurant &r) {
     cout << "\n--- DANH SACH MON AN ---\n";
     cout << left << setw(10) << "Ma mon" 
