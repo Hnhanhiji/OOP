@@ -113,7 +113,7 @@ void updateFood(Restaurant &r) {
             int choice;
             cin >> choice;
             if (choice == 1) {
-                cout << "Nhap gia moi: ";
+                cout << "Nhap gia moi: ";//
                 cin >> r.foods[i].price;
             } else if (choice == 2) {
                 cout << "Nhap so luong moi: ";
