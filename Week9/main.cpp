@@ -52,7 +52,7 @@ void addFood(Restaurant &r) {
     Food newFood;
     cout << "\n--- THEM MON AN MOI ---\n";
     cout << "Ma mon: ";
-    getline(cin, newFood.id);
+    getline(cin, newFood.id);//
     cout << "Ten mon: ";
     getline(cin, newFood.name);
     cout << "Don gia: ";
