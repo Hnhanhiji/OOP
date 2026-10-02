@@ -1,22 +1,18 @@
-
 #include <iostream>
 #include <string>
 #include <vector>
-#include <iomanip> // Thư viện dùng để định dạng khoảng cách bảng (setw)
+#include <iomanip>
 
 using namespace std;
 
-// === THIẾT KẾ CLASS BOOK ===
 class Book {
 private:
-    // Các thuộc tính đặt ở mức private
     string bookId;
     string title;
     string author;
     int year;
 
 public:
-    // Constructor khởi tạo sách với đầy đủ thông tin
     Book(string id, string t, string a, int y) {
         bookId = id;
         title = t;
@@ -24,13 +20,11 @@ public:
         year = y;
     }
 
-    // Các hàm public để lấy thông tin (getter) vì main không được truy cập trực tiếp
     string getBookId() const { return bookId; }
     string getTitle() const { return title; }
     string getAuthor() const { return author; }
     int getYear() const { return year; }
 
-    // Hàm hiển thị thông tin chi tiết 1 cuốn sách (dùng cho chức năng tìm kiếm)
     void displayDetail() const {
         cout << "Ma sach: " << bookId << "\n";
         cout << "Ten sach: " << title << "\n";
@@ -39,14 +33,11 @@ public:
     }
 };
 
-// === CHƯƠNG TRÌNH CHÍNH ===
 int main() {
-    // Lưu sách trong vector
     vector<Book> library;
     int choice;
 
     do {
-        // Hiển thị Menu
         cout << "\n===== QUAN LY SACH THU VIEN =====\n";
         cout << "1. Them sach\n";
         cout << "2. Hien thi danh sach sach\n";
@@ -56,14 +47,16 @@ int main() {
         cin >> choice;
 
         if (choice == 1) {
-            // 1. Thêm sách
             string id, title, author;
             int year;
 
             cout << "\nNhap thong tin sach:\n";
+            
+            // Xóa phím Enter còn sót lại từ lệnh cin >> choice ở trên
+            cin.ignore(); 
+
             cout << "Ma sach: ";
-            cin >> id;
-            cin.ignore(); // Xóa bộ nhớ đệm trước khi nhập chuỗi có khoảng trắng
+            getline(cin, id);      // Đã chuyển sang dùng getline
 
             cout << "Ten sach: ";
             getline(cin, title);
@@ -72,39 +65,34 @@ int main() {
             getline(cin, author);
 
             cout << "Nam xuat ban: ";
-            
             cin >> year;
 
-            // Tạo đối tượng Book bằng constructor và đưa vào vector
             Book newBook(id, title, author, year);
             library.push_back(newBook);
 
             cout << "Da them sach thanh cong!\n";
 
-        }
-        else if (choice == 2) {
-            // 2. Hiển thị danh sách
+        } else if (choice == 2) {
             cout << "\n===== DANH SACH SACH =====\n";
-            // In tiêu đề bảng với khoảng cách (setw)
-            cout << left << setw(10) << "Ma sach"
-                << setw(25) << "Ten sach"
-                << setw(20) << "Tac gia"
-                << "Nam\n";
-
-            // Duyệt qua vector để in thông tin
+            cout << left << setw(10) << "Ma sach" 
+                 << setw(25) << "Ten sach" 
+                 << setw(20) << "Tac gia" 
+                 << "Nam\n";
+            
             for (int i = 0; i < library.size(); i++) {
                 cout << left << setw(10) << library[i].getBookId()
-                    << setw(25) << library[i].getTitle()
-                    << setw(20) << library[i].getAuthor()
-                    << library[i].getYear() << "\n";
+                     << setw(25) << library[i].getTitle()
+                     << setw(20) << library[i].getAuthor()
+                     << library[i].getYear() << "\n";
             }
 
-        }
-        else if (choice == 3) {
-            // 3. Tìm sách theo mã
+        } else if (choice == 3) {
             string searchId;
             cout << "\nNhap ma sach can tim: ";
-            cin >> searchId;
+            
+            // Tương tự, cần xóa phím Enter thừa trước khi getline
+            cin.ignore(); 
+            getline(cin, searchId); // Chuyển sang dùng getline khi tìm kiếm
 
             bool found = false;
             for (int i = 0; i < library.size(); i++) {
@@ -120,8 +108,7 @@ int main() {
                 cout << "Khong tim thay sach co ma " << searchId << "!\n";
             }
 
-        }
-        else if (choice != 4) {
+        } else if (choice != 4) {
             cout << "Lua chon khong hop le. Vui long chon lai!\n";
         }
 
