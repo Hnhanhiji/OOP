@@ -1,103 +1,108 @@
 #include <iostream>
 #include <string>
-#include <vector>
-
 using namespace std;
 
-// định nghĩa struct and class
-struct Date {
-	int year, month, day;
-	// constructor mặc định cho Dtae
-	Date() : year(0), month(0), day(0) {}
-
-	//Thêm constructor 3 tham số để gọi được Date{2000, 1, 1} trong hàm main
-	Date(int y, int m, int d) : year(y), month(m), day(d) {}
+class Date {
+public:
+    int year, month, day;
+    Date() { year = 0; month = 0; day = 0; }
+    Date(int y, int m, int d) { year = y; month = m; day = d; }
 };
 
 class Student {
 private:
-	// properties
-	string name;
-	string address;
-	Date birthdate; // date of birth: yyyy/mm/dd
-	string cccd; // citizen card code
+    string name;
+    string address;  
+    Date birthdate; // yyyy/mm/dd
+    string cccd; 
 
-public:
-	
-	Student() {}
+public: 
+    // ===== Constructors =====
+    Student() {
+        name = ""; 
+        address = "";
+        birthdate = Date(); 
+        cccd = "";
+    }
 
-	// 1. constructor 4 tham số 
-	
-	Student(string n, string a, Date b, string c) : name(n), address(a), birthdate(b), cccd(c) {}
+    Student(string n) {
+        name = n; 
+        address = "";
+        birthdate = Date(); 
+        cccd = "";
+    }  
 
-	
-	// 2. constructor 3 tham số
-	Student(string n, string a, Date b) : name(n), address(a), birthdate(b) {}
+    Student(string n, string addr) {
+        name = n; 
+        address = addr;
+        birthdate = Date(); 
+        cccd = "";
+    }
 
-	// 3. constructor 2 tham số
-	Student(string n, string a) : name(n), address(a) {}
+    Student(string n, string addr, Date d) {
+        name = n;
+        address = addr;
+        birthdate = d; 
+        cccd = "";
+    }
 
-	// 4. constructor 1 tham số
-	Student(string n) : name(n) {}
+    Student(string n, string addr, Date d, string id) {
+        name = n;
+        address = addr;
+        birthdate = d; 
+        cccd = id;
+    }
+    
+    // ===== Methods =====
+    void setStudentInfo(string n) {
+        name = n;
+    }
 
-	// methods
-	void setStudentInfo() {
-		// code to set student information
-	}
+    void setStudentInfo(string n, string addr) {
+        name = n;
+        address = addr;
+    }
 
-	Student getStudentInfo(string cccd) {
-		// code to get student information
-		return Student("", "", Date(), "");
-	}
+    void setStudentInfo(string n, string addr, Date d) {
+        name = n;
+        address = addr;
+        birthdate = d;
+    }
 
-	// dùng mảng động 
-	vector<Student> getStudents(string name) { // mảng động lưu trữ danh sách sinh viên
-		// code to get students
-		return vector<Student>();
-	}
+    void setStudentInfo(string n, string addr, Date d, string id) {
+        name = n;
+        address = addr;
+        birthdate = d;
+        cccd = id;
+    }
 
-	vector <Student> getStudentsByBirthdate(Date birthdate) {
-		// code to get students by birthdate
-		return vector<Student>();
-	}
+    void getStudentInfo() {
+        cout << "====================" << endl;
+        cout << "=== Student Info ===" << endl;
+        cout << "====================" << endl;
+        cout << "Name: " << name << endl;
+        cout << "Address: " << address << endl;
+        cout << "Birthdate: " << birthdate.year << "/" << birthdate.month << "/" << birthdate.day << endl;
+        cout << "CCCD: " << cccd << endl;
 
-	vector <Student> getStudentsByAddress(string address) {
-		// code to get students by address
-		return vector<Student>();
-	}
-
-	vector <Student> getStudentsByCCCD(string cccd) {
-		// code to get students by cccd
-		return vector<Student>();
-	}
-	void displayInfo() {
-		// code to print student information
-		cout << "Name: " << name << endl;
-		cout << "Address: " << address << endl;
-		cout << "Birthdate: " << birthdate.year << "/" << birthdate.month << "/" << birthdate.day << endl;
-		cout << "CCCD: " << cccd << endl;
-	}
+    }
 };
 
-
-// OOP = Data hiding -> Encapsulation ( tính đóng gói)
 int main() {
-	Student student1;
-	// test tham số 1
-	Student student2("Nguyen Van A");
-	// test tham số 2
-	Student student3("Nguyen Van B", "Ha Noi");
-	// test tham số 3
-	Student student4("Nguyen Van C", "Ha Noi", Date{ 2000, 1, 1 });
-	// test tham số 4
-	Student student5("Nguyen Van D", "Ha Noi", Date{ 2000, 1, 1 }, "123456789");
+    Student student1();                          
+    Student student2("Huong");                 
+    Student student3("An", "Vo Van Ngan");     
 
-	//In ra màn hình kiểm tra
-	cout << "Student 1: \n"; student1.displayInfo();
-	cout << "Student 2: \n"; student2.displayInfo();
-	cout << "Student 3: \n"; student3.displayInfo();
-	cout << "Student 4: \n"; student4.displayInfo();
-	cout << "Student 5: \n"; student5.displayInfo();
+    Date d(1989, 9, 12);
+    Student student4("DoMIXI", "Ha Noi", d, "0007777056"); 
 
-	return 0;
+    Date d2(1996, 10, 26);
+    Student student5("DungSenpai", "Da Nang", d2, "999993884"); 
+
+    student2.getStudentInfo();
+    student3.getStudentInfo();
+    student4.getStudentInfo();
+    student5.getStudentInfo();
+
+    return 0;
 }
