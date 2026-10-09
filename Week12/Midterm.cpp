@@ -1,12 +1,35 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <map> // Thư viện dùng để nhóm các loài cá theo màu sắc (Câu 6)
 
 using namespace std;
 
+// ==========================================
+// CLASS DATE (Phục vụ cho thuộc tính startdate của FishShop)
+// ==========================================
+class Date {
+private:
+    int day, month, year;
+public:
+    Date() {
+        day = 1; month = 1; year = 2020;
+    }
+    Date(int d, int m, int y) {
+        day = d; month = m; year = y;
+    }
+    // Getters
+    int getDay() { return day; }
+    int getMonth() { return month; }
+    int getYear() { return year; }
 
-// CAU 7: Tao class Category (Danh muc ca)
+    void displayDate() {
+        cout << day << "/" << month << "/" << year;
+    }
+};
+
+// ==========================================
+// CAU 7 (Cũ): Tao class Category (Danh muc ca)
+// ==========================================
 class Category {
 private:
     int categoryId;
@@ -14,7 +37,6 @@ private:
     string description;
 
 public:
-    // Constructors
     Category() {
         categoryId = 0;
         categoryName = "Chua co";
@@ -27,7 +49,6 @@ public:
         description = desc;
     }
 
-    // Getters / Setters
     int getCategoryId() { return categoryId; }
     void setCategoryId(int id) { categoryId = id; }
 
@@ -37,7 +58,6 @@ public:
     string getDescription() { return description; }
     void setDescription(string desc) { description = desc; }
 
-    // Display info
     void displayCategoryInfo() {
         cout << "Category ID: " << categoryId
             << " | Ten: " << categoryName
@@ -46,7 +66,7 @@ public:
 };
 
 // ==========================================
-// CAU 1-4: Update class Fish
+// CAU 1-4 (Cũ): Class Fish
 // ==========================================
 class Fish {
 private:
@@ -54,39 +74,12 @@ private:
     string name;
     string color;
     string characteristic;
-    int categoryId; 
+    int categoryId;
 
 public:
     Fish() {
-        id = 0;
-        name = "Chua co";
-        color = "Chua co";
-        characteristic = "Chua co";
-        categoryId = 0;
-    }
-
-    Fish(int id) {
-        this->id = id;
-        name = "Chua co";
-        color = "Chua co";
-        characteristic = "Chua co";
-        categoryId = 0;
-    }
-
-    Fish(int id, string name) {
-        this->id = id;
-        this->name = name;
-        color = "Chua co";
-        characteristic = "Chua co";
-        categoryId = 0;
-    }
-
-    Fish(int id, string name, string color) {
-        this->id = id;
-        this->name = name;
-        this->color = color;
-        characteristic = "Chua co";
-        categoryId = 0;
+        id = 0; name = "Chua co"; color = "Chua co";
+        characteristic = "Chua co"; categoryId = 0;
     }
 
     Fish(int id, string name, string color, string characteristic) {
@@ -97,7 +90,6 @@ public:
         categoryId = 0;
     }
 
-    // 2. Getter va Setter
     int getId() { return id; }
     void setId(int id) { this->id = id; }
 
@@ -110,119 +102,143 @@ public:
     string getCharacteristic() { return characteristic; }
     void setCharacteristic(string characteristic) { this->characteristic = characteristic; }
 
-    // MOI THEM: Getter, Setter cho categoryId
     int getCategoryId() { return categoryId; }
     void setCategoryId(int id) { this->categoryId = id; }
 
-    // 3. Ham hien thi thong tin ca
     void displayFishInfo() {
-        cout << "----" << endl;
-        cout << "ID ca: " << id << " | ID Danh muc: " << categoryId << endl;
-        cout << "Ten ca: " << name << endl;
-        cout << "Mau sac: " << color << endl;
-        cout << "Dac diem: " << characteristic << endl;
+        cout << "   - ID: " << id << " | Ten: " << name
+            << " | Mau: " << color << " | Dac diem: " << characteristic << endl;
     }
 };
 
+// ==========================================
+// PHAN MOI - QUESTION 1 & 2: Class FishShop
+// ==========================================
+class FishShop {
+private:
+    int id;
+    string name;
+    string address;
+    string owner;
+    Date startdate;
+    vector<Category> categories; // Thay cho Category[] de de quan ly
+    vector<Fish> fishes;         // Thay cho Fish[]
+
+public:
+    // Constructors
+    FishShop() {
+        id = 0;
+        name = "Chua co";
+        address = "Chua co";
+        owner = "Chua co";
+        startdate = Date();
+    }
+
+    FishShop(int id, string name, string address, string owner, Date startdate) {
+        this->id = id;
+        this->name = name;
+        this->address = address;
+        this->owner = owner;
+        this->startdate = startdate;
+    }
+
+    // Getters va Setters
+    int getId() { return id; }
+    void setId(int id) { this->id = id; }
+
+    string getName() { return name; }
+    void setName(string name) { this->name = name; }
+
+    string getAddress() { return address; }
+    void setAddress(string address) { this->address = address; }
+
+    string getOwner() { return owner; }
+    void setOwner(string owner) { this->owner = owner; }
+
+    Date getStartDate() { return startdate; }
+    void setStartDate(Date startdate) { this->startdate = startdate; }
+
+    vector<Category> getCategories() { return categories; }
+    vector<Fish> getFishes() { return fishes; }
+
+    // Ham ho tro them danh muc va them ca vao cua hang
+    void addCategory(Category cat) {
+        categories.push_back(cat);
+    }
+
+    void addFish(Fish f) {
+        fishes.push_back(f);
+    }
+
+    // Display functions
+    void displayShopInfo() {
+        cout << "\n=============================================" << endl;
+        cout << " THONG TIN CUA HANG CA: " << name << endl;
+        cout << "=============================================" << endl;
+        cout << "ID Cua hang : " << id << endl;
+        cout << "Dia chi     : " << address << endl;
+        cout << "Chu so huu  : " << owner << endl;
+        cout << "Ngay mo cua : "; startdate.displayDate(); cout << endl;
+
+        cout << "\n--- DANH SACH DANH MUC (CATEGORIES) ---" << endl;
+        for (int i = 0; i < categories.size(); i++) {
+            categories[i].displayCategoryInfo();
+        }
+
+        cout << "\n--- DANH SACH CA TRONG CUA HANG (PHAN THEO DANH MUC) ---" << endl;
+        for (int i = 0; i < categories.size(); i++) {
+            cout << "\n>> Thuoc danh muc: " << categories[i].getCategoryName() << " (ID: " << categories[i].getCategoryId() << ")" << endl;
+            int count = 0;
+            for (int j = 0; j < fishes.size(); j++) {
+                if (fishes[j].getCategoryId() == categories[i].getCategoryId()) {
+                    fishes[j].displayFishInfo();
+                    count++;
+                }
+            }
+            if (count == 0) cout << "   (Chua co ca nao trong danh muc nay)" << endl;
+        }
+    }
+};
+
+// ==========================================
+// PHAN MOI - QUESTION 3: Ham main()
+// ==========================================
 int main() {
+    // 1. Create a fish shop
+    Date openDate(10, 10, 2026);
+    FishShop myShop(1, "Aqua Sinh Vien", "Thu Duc, TP.HCM", "Nguyen Van A", openDate);
 
-    // PHAN BAI CU (Cau 5)
-    Fish f1;
-    Fish f2(101);
-    Fish f3(102, "Ca bay mau");
-    Fish f4(103, "Ca Betta", "Do");
-    Fish f5(104, "Ca Koi", "Cam Trang", "Hien lanh, de nuoi");
+    // 2. Input data: 4 categories
+    Category cat1(1, "Ca Nuoc Ngot", "Ca song o song, ho");
+    Category cat2(2, "Ca Nuoc Man", "Ca song o bien, dai duong");
+    Category cat3(3, "Ca Thuy Sinh", "Ca nho nuoi trong be thuy sinh");
+    Category cat4(4, "Ca Phong Thuy", "Ca gia tri cao, mang lai tai loc");
 
-    f2.setName("Ca Vang");
-    f2.setColor("Vang kim");
-    f2.setCharacteristic("Thich boi dan");
+    myShop.addCategory(cat1);
+    myShop.addCategory(cat2);
+    myShop.addCategory(cat3);
+    myShop.addCategory(cat4);
 
-    
-    // CAU 6: Tao danh sach (list) va them 10 loai ca nua
-    
-    vector<Fish> fishList;
+    // 3. Input around 10 fishes for each category (Dung vong lap de sinh du lieu cho nhanh, chuan sinh vien)
+    string colors[] = { "Do", "Vang", "Xanh", "Trang", "Den" };
+    int fishIdCounter = 100; // Bat dau ID tu 100
 
-    // Day 5 con ca cu vao list
-    fishList.push_back(f1);
-    fishList.push_back(f2);
-    fishList.push_back(f3);
-    fishList.push_back(f4);
-    fishList.push_back(f5);
+    for (int catId = 1; catId <= 4; catId++) {
+        for (int j = 1; j <= 10; j++) {
+            // Tao ten ca tu dong
+            string fishName = "Ca Loai " + to_string(catId) + " - So " + to_string(j);
+            string fishColor = colors[j % 5]; // Random mau sac
 
-    // Them 10 con ca moi 
-    fishList.push_back(Fish(105, "Ca La Han", "Do", "Dau gu"));
-    fishList.push_back(Fish(106, "Ca Dia", "Do", "Dang det"));
-    fishList.push_back(Fish(107, "Ca Neon", "Xanh lam", "Boi theo dan, phat sang"));
-    fishList.push_back(Fish(108, "Ca Rong", "Vang kim", "Ca phong thuy de vuong"));
-    fishList.push_back(Fish(109, "Ca Ba Duoi", "Cam Trang", "De thuong, re"));
-    fishList.push_back(Fish(110, "Ca Ngua Van", "Soc trang den", "Boi rat nhanh"));
-    fishList.push_back(Fish(111, "Ca Binh Tich", "Den", "De sinh san"));
-    fishList.push_back(Fish(112, "Ca Lau Kieng", "Den", "Don be thuy sinh"));
-    fishList.push_back(Fish(113, "Ca Than Tien", "Trang", "Dang dep, vay dai"));
-    fishList.push_back(Fish(114, "Ca Ali", "Xanh lam", "Co tinh lanh tho cao"));
+            Fish newFish(fishIdCounter, fishName, fishColor, "Khoe manh, an tap");
+            newFish.setCategoryId(catId); // Gan ID danh muc cho ca
 
-    // Group and display fish by color (Dung map de nhom cac con ca cung mau vao 1 list)
-    cout << "\n=== CAU 6: NHOM VA HIEN THI CA THEO MAU SAC ===" << endl;
-    map<string, vector<Fish>> fishGroupedByColor;
-    for (int i = 0; i < fishList.size(); i++) {
-        string color = fishList[i].getColor();
-        fishGroupedByColor[color].push_back(fishList[i]);
-    }
-
-    for (auto pair : fishGroupedByColor) {
-        cout << "\n>>> NHOM MAU: " << pair.first << " <<<" << endl;
-        for (int i = 0; i < pair.second.size(); i++) {
-            cout << " - " << pair.second[i].getName() << " (ID: " << pair.second[i].getId() << ")" << endl;
+            myShop.addFish(newFish);
+            fishIdCounter++;
         }
     }
 
-    // CAU 7: Tao Categories va gan categoryId cho tung con ca
-    
-    cout << "\n CAU 7:DANH MUC (CATEGORY)" << endl;
-
-    // Tao it nhat 3 danh muc
-    Category cat1(1, "Ca Nuoc Ngot", "Sinh song trong ao, ho, song");
-    Category cat2(2, "Ca Thuy Sinh", "Kich thuoc nho, trong be thuy sinh");
-    Category cat3(3, "Ca Phong Thuy", "Gia tri cao, mang lai may man");
-
-    // Gan danh muc cho tat ca con ca trong fishList
-    for (int i = 0; i < fishList.size(); i++) {
-        string name = fishList[i].getName();
-        // Phan loai don gian (Logic code sinh vien)
-        if (name == "Ca Rong" || name == "Ca La Han") {
-            fishList[i].setCategoryId(3); // Ca phong thuy
-        }
-        else if (name == "Ca Neon" || name == "Ca Than Tien") {
-            fishList[i].setCategoryId(2); // Ca thuy sinh
-        }
-        else {
-            fishList[i].setCategoryId(1); // Con lai cho vao Nuoc ngot
-        }
-    }
-
-    // Hien thi danh sach Categories
-    cout << "\nDANH SACH DANH MUC HIEN CO ---" << endl;
-    cat1.displayCategoryInfo();
-    cat2.displayCategoryInfo();
-    cat3.displayCategoryInfo();
-
-    // Hien thi cac con ca thuoc danh muc duoc chon
-    int selectedCatId;
-    cout << "\nNhap Category ID muon xem (1, 2, hoac 3): ";
-    cin >> selectedCatId;
-
-    cout << "\n TAT CA CA THUOC DANH MUC ID " << selectedCatId << " ---" << endl;
-    int count = 0;
-    for (int i = 0; i < fishList.size(); i++) {
-        if (fishList[i].getCategoryId() == selectedCatId) {
-            fishList[i].displayFishInfo();
-            count++;
-        }
-    }
-
-    if (count == 0) {
-        cout << "Khong co con ca nao thuoc danh muc nay!" << endl;
-    }
+    // 4. Display information
+    myShop.displayShopInfo();
 
     return 0;
 }
