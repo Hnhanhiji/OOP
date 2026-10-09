@@ -5,9 +5,8 @@
 
 using namespace std;
 
-// ==========================================
+
 // CAU 7: Tao class Category (Danh muc ca)
-// ==========================================
 class Category {
 private:
     int categoryId;
@@ -40,9 +39,9 @@ public:
 
     // Display info
     void displayCategoryInfo() {
-        cout << "Category ID: " << categoryId 
-             << " | Ten: " << categoryName 
-             << " | Mo ta: " << description << endl;
+        cout << "Category ID: " << categoryId
+            << " | Ten: " << categoryName
+            << " | Mo ta: " << description << endl;
     }
 };
 
@@ -55,10 +54,9 @@ private:
     string name;
     string color;
     string characteristic;
-    int categoryId; // MOI THEM: de biet con ca thuoc danh muc nao (Cau 7)
+    int categoryId; 
 
 public:
-    // 1. Cac Ham tao (Constructors) - Cap nhat them categoryId = 0 mac dinh
     Fish() {
         id = 0;
         name = "Chua co";
@@ -127,9 +125,8 @@ public:
 };
 
 int main() {
-    // ---------------------------------------------------------
+
     // PHAN BAI CU (Cau 5)
-    // ---------------------------------------------------------
     Fish f1;
     Fish f2(101);
     Fish f3(102, "Ca bay mau");
@@ -140,11 +137,11 @@ int main() {
     f2.setColor("Vang kim");
     f2.setCharacteristic("Thich boi dan");
 
-    // ---------------------------------------------------------
-    // CAU 6: Tao danh sach (list) va them 10 loai ca nua
-    // ---------------------------------------------------------
-    vector<Fish> fishList;
     
+    // CAU 6: Tao danh sach (list) va them 10 loai ca nua
+    
+    vector<Fish> fishList;
+
     // Day 5 con ca cu vao list
     fishList.push_back(f1);
     fishList.push_back(f2);
@@ -152,7 +149,7 @@ int main() {
     fishList.push_back(f4);
     fishList.push_back(f5);
 
-    // Them 10 con ca moi voi cac mau sac de test group
+    // Them 10 con ca moi 
     fishList.push_back(Fish(105, "Ca La Han", "Do", "Dau gu"));
     fishList.push_back(Fish(106, "Ca Dia", "Do", "Dang det"));
     fishList.push_back(Fish(107, "Ca Neon", "Xanh lam", "Boi theo dan, phat sang"));
@@ -179,11 +176,10 @@ int main() {
         }
     }
 
-    // ---------------------------------------------------------
     // CAU 7: Tao Categories va gan categoryId cho tung con ca
-    // ---------------------------------------------------------
-    cout << "\n=== CAU 7: QUAN LY DANH MUC (CATEGORY) ===" << endl;
     
+    cout << "\n CAU 7:DANH MUC (CATEGORY)" << endl;
+
     // Tao it nhat 3 danh muc
     Category cat1(1, "Ca Nuoc Ngot", "Sinh song trong ao, ho, song");
     Category cat2(2, "Ca Thuy Sinh", "Kich thuoc nho, trong be thuy sinh");
@@ -195,17 +191,17 @@ int main() {
         // Phan loai don gian (Logic code sinh vien)
         if (name == "Ca Rong" || name == "Ca La Han") {
             fishList[i].setCategoryId(3); // Ca phong thuy
-        } 
+        }
         else if (name == "Ca Neon" || name == "Ca Than Tien") {
             fishList[i].setCategoryId(2); // Ca thuy sinh
-        } 
+        }
         else {
             fishList[i].setCategoryId(1); // Con lai cho vao Nuoc ngot
         }
     }
 
     // Hien thi danh sach Categories
-    cout << "\n--- DANH SACH DANH MUC HIEN CO ---" << endl;
+    cout << "\nDANH SACH DANH MUC HIEN CO ---" << endl;
     cat1.displayCategoryInfo();
     cat2.displayCategoryInfo();
     cat3.displayCategoryInfo();
@@ -215,7 +211,7 @@ int main() {
     cout << "\nNhap Category ID muon xem (1, 2, hoac 3): ";
     cin >> selectedCatId;
 
-    cout << "\n--- TAT CA CA THUOC DANH MUC ID " << selectedCatId << " ---" << endl;
+    cout << "\n TAT CA CA THUOC DANH MUC ID " << selectedCatId << " ---" << endl;
     int count = 0;
     for (int i = 0; i < fishList.size(); i++) {
         if (fishList[i].getCategoryId() == selectedCatId) {
@@ -223,7 +219,7 @@ int main() {
             count++;
         }
     }
-    
+
     if (count == 0) {
         cout << "Khong co con ca nao thuoc danh muc nay!" << endl;
     }
