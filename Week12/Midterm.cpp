@@ -1,12 +1,8 @@
-// Week12.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-// 1) Define the Fish class
 class Fish {
 private:
     int id;
@@ -15,106 +11,118 @@ private:
     string characteristic;
 
 public:
-    // 2) Implement Constructors
+    // 1. Cac Ham tao (Constructors)
 
-    // Default constructor (no parameters)
+    // Ham tao mac dinh (khong tham so)
     Fish() {
         id = 0;
-        name = "Unknown";
-        color = "Unknown";
-        characteristic = "Unknown";
+        name = "Chua co";
+        color = "Chua co";
+        characteristic = "Chua co";
     }
 
-    // Constructor with 1 parameter
-    Fish(int i) {
-        id = i;
-        name = "Unknown";
-        color = "Unknown";
-        characteristic = "Unknown";
+    // Ham tao 1 tham so
+    Fish(int id) {
+        this->id = id;
+        name = "Chua co";
+        color = "Chua co";
+        characteristic = "Chua co";
     }
 
-    // Constructor with 2 parameters
-    Fish(int i, string n) {
-        id = i;
-        name = n;
-        color = "Unknown";
-        characteristic = "Unknown";
+    // Ham tao 2 tham so
+    Fish(int id, string name) {
+        this->id = id;
+        this->name = name;
+        color = "Chua co";
+        characteristic = "Chua co";
     }
 
-    // Constructor with 3 parameters
-    Fish(int i, string n, string c) {
-        id = i;
-        name = n;
-        color = c;
-        characteristic = "Unknown";
+    // Ham tao 3 tham so
+    Fish(int id, string name, string color) {
+        this->id = id;
+        this->name = name;
+        this->color = color;
+        characteristic = "Chua co";
     }
 
-    // Constructor with all 4 parameters
-    Fish(int i, string n, string c, string ch) {
-        id = i;
-        name = n;
-        color = c;
-        characteristic = ch;
+    // Ham tao du 4 tham so
+    Fish(int id, string name, string color, string characteristic) {
+        this->id = id;
+        this->name = name;
+        this->color = color;
+        this->characteristic = characteristic;
     }
 
-    // 3) Implement Getter and Setter Methods
+    // 2. Getter va Setter
+    int getId() {
+        return id;
+    }
+    void setId(int id) {
+        this->id = id;
+    }
 
-    int getId() { return id; }
-    void setId(int i) { id = i; }
+    string getName() {
+        return name;
+    }
+    void setName(string name) {
+        this->name = name;
+    }
 
-    string getName() { return name; }
-    void setName(string n) { name = n; }
+    string getColor() {
+        return color;
+    }
+    void setColor(string color) {
+        this->color = color;
+    }
 
-    string getColor() { return color; }
-    void setColor(string c) { color = c; }
+    string getCharacteristic() {
+        return characteristic;
+    }
+    void setCharacteristic(string characteristic) {
+        this->characteristic = characteristic;
+    }
 
-    string getCharacteristic() { return characteristic; }
-    void setCharacteristic(string ch) { characteristic = ch; }
-
-    // 4) Implement a Method to Display Fish Information
+    // 3. Ham hien thi thong tin ca
     void displayFishInfo() {
-        cout << "-----------------------------" << endl;
-        cout << "ID            : " << id << endl;
-        cout << "Name          : " << name << endl;
-        cout << "Color         : " << color << endl;
-        cout << "Characteristic: " << characteristic << endl;
+        cout << "----" << endl;
+        cout << "ID: " << id << endl;
+        cout << "Ten ca: " << name << endl;
+        cout << "Mau sac: " << color << endl;
+        cout << "Dac diem: " << characteristic << endl;
     }
 };
 
-// 5) Implement the main() Function
 int main() {
-    // 5.1: Create 5 Fish objects using the 5 different constructors
-    Fish fish1;
-    Fish fish2(101);
-    Fish fish3(102, "Guppy");
-    Fish fish4(103, "Betta", "Red");
-    Fish fish5(104, "Koi", "Orange/White", "Peaceful");
+    // Cau 5.1: Tao 5 doi tuong ca bang 5 constructor khac nhau
+    Fish f1;
+    Fish f2(101);
+    Fish f3(102, "Ca bay mau");
+    Fish f4(103, "Ca Betta", "Do");
+    Fish f5(104, "Ca Koi", "Cam Trang", "Hien hien, de nuoi");
 
-    // 5.2: Call displayFishInfo() to display the information of all 5 objects
-    cout << "=== INITIAL FISH INFORMATION ===" << endl;
-    fish1.displayFishInfo();
-    fish2.displayFishInfo();
-    fish3.displayFishInfo();
-    fish4.displayFishInfo();
-    fish5.displayFishInfo();
+    // Cau 5.2: In thong tin ca 5 con ca ban dau
+    cout << "== DANH SACH CA BAN DAU ==" << endl;
+    f1.displayFishInfo();
+    f2.displayFishInfo();
+    f3.displayFishInfo();
+    f4.displayFishInfo();
+    f5.displayFishInfo();
 
-    // 5.3: Use the setter methods to update the name, color, and characteristics of one object
-    // Cập nhật thông tin cho đối tượng fish2
-    fish2.setName("Goldfish");
-    fish2.setColor("Gold");
-    fish2.setCharacteristic("Hardy and popular");
+    // Cau 5.3: Cap nhat thong tin cho con ca thu 2 (f2) bang Setter
+    f2.setName("Ca Vang");
+    f2.setColor("Vang kim");
+    f2.setCharacteristic("Thich boi dan");
 
-    // 5.4: Use the getter methods to retrieve and print the information of the updated object
-    cout << "\n=== RETRIEVING UPDATED FISH 2 USING GETTERS ===" << endl;
-    cout << "Fish ID       : " << fish2.getId() << endl;
-    cout << "Fish Name     : " << fish2.getName() << endl;
-    cout << "Fish Color    : " << fish2.getColor() << endl;
-    cout << "Characteristic: " << fish2.getCharacteristic() << endl;
+    // Cau 5.4: Lay thong tin ca f2 ra in bang Getter
+    cout << "\n= THONG TIN CA (DUNG GETTER)" << endl;
+    cout << "ID: " << f2.getId() << endl;
+    cout << "Ten ca: " << f2.getName() << endl;
+    cout << "Mau sac: " << f2.getColor() << endl;
+    cout << "Dac diem: " << f2.getCharacteristic() << endl;
 
-    // 5.5: Call displayFishInfo() again to verify the changes
-    cout << "\n=== VERIFYING FISH 2 USING displayFishInfo() ===" << endl;
-    fish2.displayFishInfo();
+    // Cau 5.5: Kiem tra lai f2 bang cach goi displayFishInfo()
+    cout << "\n KIEM TRA LAI BANG DISPLAYFISHINFO() " << endl;
+    f2.displayFishInfo();
 
     return 0;
 }
-
