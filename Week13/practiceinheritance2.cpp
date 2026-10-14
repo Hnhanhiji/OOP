@@ -2,234 +2,159 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <memory>  // Thu vien cho Smart Pointers
+#include <iomanip> // Thu vien de format output (setw, setprecision)
 
 using namespace std;
 
-// 1. Class Employee (lớp cha)
+// ==========================================
+// 1. CLASS EMPLOYEE (Abstract Base Class)
+// ==========================================
 class Employee {
 protected:
-    string cccd;
-    string sdt;
-    string address;
+    string cccd{};
+    string sdt{};
+    string address{};
 
 public:
-    Employee();
-    Employee(string c, string s, string a);
+    Employee() = default;
+    Employee(string c, string s, string a) : cccd(move(c)), sdt(move(s)), address(move(a)) {}
     
-    // Khai báo hàm ảo (virtual) để hỗ trợ tính đa hình cho bài tập mở rộng
-    virtual ~Employee() {}
-    virtual void displayInfo() const;
-    virtual double tinhLuong() const { return 0.0; } 
-    virtual string getType() const { return "Employee"; } // Phân loại nhân viên
+    virtual ~Employee() = default; // Chuan Modern C++ cho destructor ao
 
-    // Getters & Setters
-    string getCCCD() const;
-    string getSDT() const;
-    string getAddress() const;
-    void setCCCD(string c);
-    void setSDT(string s);
-    void setAddress(string a);
+    // Ham thuan ao (Pure virtual) -> Bat buoc cac class con phai implement
+    [[nodiscard]] virtual double tinhLuong() const = 0;
+    
+    virtual void displayInfo() const {
+        cout << "| CCCD: " << left << setw(15) << cccd 
+             << "| SDT: " << setw(12) << sdt 
+             << "| Dia chi: " << setw(12) << address;
+    }
+    
+    [[nodiscard]] virtual string getType() const = 0;
+
+    // Getters
+    [[nodiscard]] string getCCCD() const { return cccd; }
+    [[nodiscard]] string getSDT() const { return sdt; }
+    [[nodiscard]] string getAddress() const { return address; }
 };
 
-// 2. Class HourlyEmployee (kế thừa từ Employee)
-class HourlyEmployee : public Employee {
+// ==========================================
+// 2. CLASS HOURLY EMPLOYEE
+// ==========================================
+class HourlyEmployee final : public Employee {
 private:
-    int soGioLamViec;
-    double donGia;
+    int soGioLamViec{0};
+    double donGia{0.0};
 
 public:
-    HourlyEmployee();
-    HourlyEmployee(string c, string s, string a, int soGio, double donGia);
+    HourlyEmployee() = default;
+    HourlyEmployee(string c, string s, string a, int soGio, double donGia)
+        : Employee(move(c), move(s), move(a)), soGioLamViec(soGio), donGia(donGia) {}
 
-    // Mở rộng 1 & 2: Ghi đè hàm tinhLuong() và displayInfo()
-    double tinhLuong() const override;
-    void displayInfo() const override;
-    string getType() const override { return "HourlyEmployee"; }
+    [[nodiscard]] double tinhLuong() const override {
+        return soGioLamViec * donGia;
+    }
 
-    // Getters & Setters
-    int getSoGioLamViec() const;
-    double getDonGia() const;
-    void setSoGioLamViec(int g);
-    void setDonGia(double dg);
+    void displayInfo() const override {
+        Employee::displayInfo();
+        cout << "| Loai: Hourly  | Gio lam: " << setw(4) << soGioLamViec 
+             << "| Luong: " << fixed << setprecision(0) << tinhLuong() << " VND" << endl;
+    }
+
+    [[nodiscard]] string getType() const override { return "HourlyEmployee"; }
 };
 
-// 3. Class MonthlyEmployee (kế thừa từ Employee)
-class MonthlyEmployee : public Employee {
+// ==========================================
+// 3. CLASS MONTHLY EMPLOYEE
+// ==========================================
+class MonthlyEmployee final : public Employee {
 private:
-    double luongCoBan;
-    double phuCap;
-    double heSoThuong;
+    double luongCoBan{0.0};
+    double phuCap{0.0};
+    double heSoThuong{0.0};
 
 public:
-    MonthlyEmployee();
-    MonthlyEmployee(string c, string s, string a, double lcb, double pc, double hs);
+    MonthlyEmployee() = default;
+    MonthlyEmployee(string c, string s, string a, double lcb, double pc, double hs)
+        : Employee(move(c), move(s), move(a)), luongCoBan(lcb), phuCap(pc), heSoThuong(hs) {}
 
-    // Mở rộng 1 & 2: Ghi đè hàm tinhLuong() và displayInfo()
-    double tinhLuong() const override;
-    void displayInfo() const override;
-    string getType() const override { return "MonthlyEmployee"; }
+    [[nodiscard]] double tinhLuong() const override {
+        return luongCoBan + phuCap + (luongCoBan * heSoThuong);
+    }
 
-    // Getters & Setters
-    double getLuongCoBan() const;
-    double getPhuCap() const;
-    double getHeSoThuong() const;
-    void setLuongCoBan(double lcb);
-    void setPhuCap(double pc);
-    void setHeSoThuong(double hs);
+    void displayInfo() const override {
+        Employee::displayInfo();
+        cout << "| Loai: Monthly | He so: " << setw(6) << heSoThuong 
+             << "| Luong: " << fixed << setprecision(0) << tinhLuong() << " VND" << endl;
+    }
+
+    [[nodiscard]] string getType() const override { return "MonthlyEmployee"; }
 };
 
-// ĐỊNH NGHĨA CÁC PHƯƠNG THỨC & CONSTRUCTOR
-
-// --- Employee ---
-Employee::Employee() { cccd = ""; sdt = ""; address = ""; }
-Employee::Employee(string c, string s, string a) : cccd(c), sdt(s), address(a) {}
-
-string Employee::getCCCD() const { return cccd; }
-string Employee::getSDT() const { return sdt; }
-string Employee::getAddress() const { return address; }
-void Employee::setCCCD(string c) { cccd = c; }
-void Employee::setSDT(string s) { sdt = s; }
-void Employee::setAddress(string a) { address = a; }
-
-void Employee::displayInfo() const {
-    cout << "CCCD: " << cccd << endl;
-    cout << "SDT: " << sdt << endl;
-    cout << "Address: " << address << endl;
-}
-
-// --- HourlyEmployee ---
-HourlyEmployee::HourlyEmployee() : Employee(), soGioLamViec(0), donGia(0.0) {}
-HourlyEmployee::HourlyEmployee(string c, string s, string a, int soGio, double dg)
-    : Employee(c, s, a), soGioLamViec(soGio), donGia(dg) {}
-
-// Bài mở rộng 1: Công thức tính lương HourlyEmployee
-double HourlyEmployee::tinhLuong() const {
-    return soGioLamViec * donGia;
-}
-
-// Bài mở rộng 2: Ghi đè displayInfo
-void HourlyEmployee::displayInfo() const {
-    Employee::displayInfo();
-    cout << "So gio lam viec: " << soGioLamViec << endl;
-    cout << "Don gia: " << donGia << endl;
-    cout << "Luong: " << tinhLuong() << endl;
-}
-
-int HourlyEmployee::getSoGioLamViec() const { return soGioLamViec; }
-double HourlyEmployee::getDonGia() const { return donGia; }
-void HourlyEmployee::setSoGioLamViec(int g) { soGioLamViec = g; }
-void HourlyEmployee::setDonGia(double dg) { donGia = dg; }
-
-// --- MonthlyEmployee ---
-MonthlyEmployee::MonthlyEmployee() : Employee(), luongCoBan(0.0), phuCap(0.0), heSoThuong(0.0) {}
-MonthlyEmployee::MonthlyEmployee(string c, string s, string a, double lcb, double pc, double hs)
-    : Employee(c, s, a), luongCoBan(lcb), phuCap(pc), heSoThuong(hs) {}
-
-// Bài mở rộng 1: Công thức tính lương MonthlyEmployee
-double MonthlyEmployee::tinhLuong() const {
-    return luongCoBan + phuCap + (luongCoBan * heSoThuong);
-}
-
-// Bài mở rộng 2: Ghi đè displayInfo
-void MonthlyEmployee::displayInfo() const {
-    Employee::displayInfo();
-    cout << "Luong co ban: " << luongCoBan << endl;
-    cout << "Phu cap: " << phuCap << endl;
-    cout << "He so thuong: " << heSoThuong << endl;
-    cout << "Luong: " << tinhLuong() << endl;
-}
-
-double MonthlyEmployee::getLuongCoBan() const { return luongCoBan; }
-double MonthlyEmployee::getPhuCap() const { return phuCap; }
-double MonthlyEmployee::getHeSoThuong() const { return heSoThuong; }
-void MonthlyEmployee::setLuongCoBan(double lcb) { luongCoBan = lcb; }
-void MonthlyEmployee::setPhuCap(double pc) { phuCap = pc; }
-void MonthlyEmployee::setHeSoThuong(double hs) { heSoThuong = hs; }
-
-
-// HÀM MAIN THỰC HIỆN CÁC BÀI TẬP MỞ RỘNG (MỤC 7)
-
-
+// ==========================================
+// 4. MAIN FUNCTION (Modern C++ Implementation)
+// ==========================================
 int main() {
-    // Bài mở rộng 3: Khởi tạo ít nhất 2 đối tượng mỗi loại
-    // Bài mở rộng 4: Tạo mảng hoặc vector<Employee*>
-    vector<Employee*> dsNhanVien;
+    // Dung smart pointer de quan ly bo nho tu dong (Zero memory leaks)
+    vector<unique_ptr<Employee>> emps;
 
-    dsNhanVien.push_back(new HourlyEmployee("079876543210", "0901002003", "Ha Noi", 160, 50000));
-    dsNhanVien.push_back(new HourlyEmployee("079111222333", "0901112233", "Hai Phong", 120, 60000));
-    dsNhanVien.push_back(new MonthlyEmployee("079987654321", "0903004005", "Da Nang", 15000000, 2000000, 1.2));
-    dsNhanVien.push_back(new MonthlyEmployee("079444555666", "0904445566", "Can Tho", 10000000, 1500000, 1.0));
+    emps.push_back(make_unique<HourlyEmployee>("079876543210", "0901002003", "Ha Noi", 160, 50000));
+    emps.push_back(make_unique<HourlyEmployee>("079111222333", "0901112233", "Hai Phong", 120, 60000));
+    emps.push_back(make_unique<MonthlyEmployee>("079987654321", "0903004005", "Da Nang", 15000000, 2000000, 1.2));
+    emps.push_back(make_unique<MonthlyEmployee>("079444555666", "0904445566", "Can Tho", 10000000, 1500000, 1.0));
 
-    cout << "================ DANH SACH NHAN VIEN ================\n";
-    for (const auto& nv : dsNhanVien) {
-        nv->displayInfo();
-        cout << "-----------------------------------\n";
+    cout << "========================== DANH SACH NHAN VIEN ==========================\n";
+    for (const auto& emp : emps) {
+        emp->displayInfo();
     }
 
-    // Bài mở rộng 4: Tính tổng quỹ lương
+    // Bai 4: Tinh tong quy luong bang std::accumulate (Hoac for range-based ngan gon)
     double tongQuyLuong = 0;
-    for (const auto& nv : dsNhanVien) {
-        tongQuyLuong += nv->tinhLuong();
-    }
+    for (const auto& emp : emps) tongQuyLuong += emp->tinhLuong();
     cout << "\n[Bai 4] Tong quy luong cua cong ty: " << tongQuyLuong << " VND\n";
 
-    // Bài mở rộng 5: Tìm nhân viên lương cao nhất & thấp nhất
-    if (!dsNhanVien.empty()) {
-        Employee* maxNV = dsNhanVien[0];
-        Employee* minNV = dsNhanVien[0];
+    // Bai 5: Tim nhan vien max/min luong cuc nhanh bang std::max_element / std::min_element
+    if (!emps.empty()) {
+        auto cmpLuong = [](const unique_ptr<Employee>& a, const unique_ptr<Employee>& b) {
+            return a->tinhLuong() < b->tinhLuong();
+        };
+        
+        auto maxEmp = max_element(emps.begin(), emps.end(), cmpLuong);
+        auto minEmp = min_element(emps.begin(), emps.end(), cmpLuong);
 
-        for (size_t i = 1; i < dsNhanVien.size(); ++i) {
-            if (dsNhanVien[i]->tinhLuong() > maxNV->tinhLuong()) maxNV = dsNhanVien[i];
-            if (dsNhanVien[i]->tinhLuong() < minNV->tinhLuong()) minNV = dsNhanVien[i];
-        }
-
-        cout << "\n[Bai 5] Nhan vien co LUONG CAO NHAT (" << maxNV->tinhLuong() << " VND):\n";
-        maxNV->displayInfo();
-
-        cout << "\n[Bai 5] Nhan vien co LUONG THAP NHAT (" << minNV->tinhLuong() << " VND):\n";
-        minNV->displayInfo();
+        cout << "\n[Bai 5] Nhan vien luong CAO NHAT:\n"; (*maxEmp)->displayInfo();
+        cout << "[Bai 5] Nhan vien luong THAP NHAT:\n"; (*minEmp)->displayInfo();
     }
 
-    // Bài mở rộng 6: Đếm số lượng nhân viên từng loại
-    int countHourly = 0, countMonthly = 0;
-    for (const auto& nv : dsNhanVien) {
-        if (nv->getType() == "HourlyEmployee") countHourly++;
-        else if (nv->getType() == "MonthlyEmployee") countMonthly++;
-    }
-    cout << "\n[Bai 6] So luong HourlyEmployee: " << countHourly << "\n";
-    cout << "[Bai 6] So luong MonthlyEmployee: " << countMonthly << "\n";
+    // Bai 6: Dem so luong chuyen nghiep bang std::count_if
+    int countHourly = count_if(emps.begin(), emps.end(), [](const auto& emp) { return emp->getType() == "HourlyEmployee"; });
+    int countMonthly = emps.size() - countHourly;
+    
+    cout << "\n[Bai 6] So luong - Hourly: " << countHourly << " | Monthly: " << countMonthly << "\n";
 
-    // Bài mở rộng 7: Tìm và hiển thị danh sách NV có lương > X
-    double luongNguong;
-    cout << "\n[Bai 7] Nhap muc luong toi thieu can tim: ";
-    cin >> luongNguong;
-
-    cout << "---> Danh sach nhan vien co luong > " << luongNguong << " VND:\n";
+    // Bai 7: Loc nhan vien theo nguong luong
+    double luongNguong = 10000000; // Hardcode de chay thu thay vi bat nhap (hoac dung cin)
+    cout << "\n[Bai 7] Danh sach nhan vien co luong > " << luongNguong << " VND:\n";
     bool found = false;
-    for (const auto& nv : dsNhanVien) {
-        if (nv->tinhLuong() > luongNguong) {
-            nv->displayInfo();
-            cout << "-----------------------------------\n";
+    for (const auto& emp : emps) {
+        if (emp->tinhLuong() > luongNguong) {
+            emp->displayInfo();
             found = true;
         }
     }
-    if (!found) cout << "Khong co nhan vien nao dat muc luong nay.\n";
+    if (!found) cout << "-> Khong co nhan vien nao dat muc luong nay.\n";
 
-    // Bài mở rộng 8: Sắp xếp danh sách nhân viên theo lương giảm dần
-    sort(dsNhanVien.begin(), dsNhanVien.end(), [](Employee* a, Employee* b) {
+    // Bai 8: Sap xep giam dan va in bang STL Sort
+    cout << "\n[Bai 8] DANH SACH NHAN VIEN SAP XEP LUONG GIAM DAN:\n";
+    sort(emps.begin(), emps.end(), [](const unique_ptr<Employee>& a, const unique_ptr<Employee>& b) {
         return a->tinhLuong() > b->tinhLuong();
     });
 
-    cout << "\n[Bai 8] DANH SACH NHAN VIEN SAU KHI SAP XEP GIAM DAN THEO LUONG:\n";
-    for (const auto& nv : dsNhanVien) {
-        nv->displayInfo();
-        cout << "-----------------------------------\n";
+    for (const auto& emp : emps) {
+        emp->displayInfo();
     }
 
-    // Giải phóng bộ nhớ
-    for (auto nv : dsNhanVien) {
-        delete nv;
-    }
-
+    // KHONG CAN DELETE BẰNG TAY: unique_ptr se tu dong don dep bo nho khi thoat ham main!
     return 0;
 }
