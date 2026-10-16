@@ -5,225 +5,210 @@
 
 using namespace std;
 
-// =========================================================
-// 1. LỚP CƠ SỞ TRỪU TƯỢNG (ABSTRACT BASE CLASS)
-// =========================================================
+// ==========================================
+// 1. LỚP CƠ SỞ (BASE CLASS): Vehicle
+// ==========================================
 class Vehicle {
-protected:
-    string id;
-    string name;
-    double rentalPrice;
+private:
+    string id;          // Mã phương tiện
+    string brand;       // Hãng sản xuất
+    double pricePerDay; // Đơn giá thuê theo ngày
 
 public:
-    Vehicle() : id(""), name(""), rentalPrice(0.0) {}
-    Vehicle(string i, string n, double p) : id(i), name(n), rentalPrice(p) {}
-    
-    // Virtual destructor: Đảm bảo hủy đúng đối tượng lớp con khi dùng con trỏ lớp cha
+    // Default constructor
+    Vehicle() : id(""), brand(""), pricePerDay(0.0) {}
+
+    // Parameterized constructor
+    Vehicle(string id, string brand, double pricePerDay)
+        : id(id), brand(brand), pricePerDay(pricePerDay) {}
+
+    // Destructor ảo: Giúp giải phóng đúng vùng nhớ lớp con khi dùng con trỏ lớp cha
     virtual ~Vehicle() = default;
 
-    // Getters & Setters
+    // Getters
     string getId() const { return id; }
-    string getName() const { return name; }
-    double getRentalPrice() const { return rentalPrice; }
+    string getBrand() const { return brand; }
+    double getPricePerDay() const { return pricePerDay; }
 
-    void setId(const string& i) { id = i; }
-    void setName(const string& n) { name = n; }
-    void setRentalPrice(double p) { rentalPrice = p; }
+    // Setters
+    void setId(const string& id) { this->id = id; }
+    void setBrand(const string& brand) { this->brand = brand; }
+    void setPricePerDay(double pricePerDay) { this->pricePerDay = pricePerDay; }
 
-    // --- CÁC PHƯƠNG THỨC ẢO (VIRTUAL METHODS) THỂ HIỆN TÍNH ĐA HÌNH ---
-    virtual string getType() const = 0;                     // Hàm thuần ảo phân loại xe
-    virtual double calculateRentalFee(int days) const = 0;  // Hàm thuần ảo tính phí thuê
-    
+    // Hàm ảo thuần túy tính phí thuê (Pure Virtual Function)
+    virtual double calculateRentalFee(int days) const = 0;
+
+    // Hàm ảo hiển thị thông tin chung
     virtual void displayInfo() const {
         cout << "Mã xe: " << id 
-             << " | Tên: " << name 
-             << " | Giá thuê/ngày: " << fixed << setprecision(0) << rentalPrice << " VND";
+             << " | Hãng: " << brand 
+             << " | Đơn giá/ngày: " << fixed << setprecision(0) << pricePerDay << " VNĐ";
     }
 };
 
-// =========================================================
-// 2. CÁC LỚP DẪN XUẤT (DERIVED CLASSES)
-// =========================================================
-
-// --- LỚP CAR ---
+// ==========================================
+// 2. LỚP CON 1: Car (Ô tô)
+// ==========================================
 class Car : public Vehicle {
 private:
-    int seats;
+    int numberOfSeats; // Số chỗ ngồi
 
 public:
-    Car() : Vehicle(), seats(0) {}
-    Car(string i, string n, double p, int s) : Vehicle(i, n, p), seats(s) {}
+    // Default constructor
+    Car() : Vehicle(), numberOfSeats(4) {}
 
-    int getSeats() const { return seats; }
-    void setSeats(int s) { seats = s; }
+    // Parameterized constructor
+    Car(string id, string brand, double pricePerDay, int numberOfSeats)
+        : Vehicle(id, brand, pricePerDay), numberOfSeats(numberOfSeats) {}
 
-    string getType() const override { return "Car"; }
+    // Getter & Setter
+    int getNumberOfSeats() const { return numberOfSeats; }
+    void setNumberOfSeats(int numberOfSeats) { this->numberOfSeats = numberOfSeats; }
 
-    // Ghi đè phương thức hiển thị
-    void displayInfo() const override {
-        cout << "[Ô TÔ]   ";
-        Vehicle::displayInfo();
-        cout << " | Số chỗ ngồi: " << seats;
-    }
-
-    // Ghi đè công thức tính tiền cho Ô tô (Giảm 10% từ 7 ngày)
+    // Ghi đè tính phí thuê: Giảm 10% nếu thuê từ 7 ngày trở lên
     double calculateRentalFee(int days) const override {
-        double fee = days * rentalPrice;
+        double fee = days * getPricePerDay();
         if (days >= 7) {
-            fee *= 0.9;
+            fee *= 0.90; // Giảm 10%
         }
         return fee;
     }
+
+    // Ghi đè hiển thị thông tin: Gọi lại hàm của lớp cha
+    void displayInfo() const override {
+        Vehicle::displayInfo(); // Gọi displayInfo() của lớp cha Vehicle
+        cout << " | Loại: Ô tô (" << numberOfSeats << " chỗ)";
+    }
 };
 
-// --- LỚP MOTORBIKE ---
+// ==========================================
+// 3. LỚP CON 2: Motorbike (Xe máy)
+// ==========================================
 class Motorbike : public Vehicle {
 private:
-    int engineCC;
+    int engineCapacity; // Dung tích xi lanh (cc)
 
 public:
-    Motorbike() : Vehicle(), engineCC(0) {}
-    Motorbike(string i, string n, double p, int cc) : Vehicle(i, n, p), engineCC(cc) {}
+    // Default constructor
+    Motorbike() : Vehicle(), engineCapacity(110) {}
 
-    int getEngineCC() const { return engineCC; }
-    void setEngineCC(int cc) { engineCC = cc; }
+    // Parameterized constructor
+    Motorbike(string id, string brand, double pricePerDay, int engineCapacity)
+        : Vehicle(id, brand, pricePerDay), engineCapacity(engineCapacity) {}
 
-    string getType() const override { return "Motorbike"; }
+    // Getter & Setter
+    int getEngineCapacity() const { return engineCapacity; }
+    void setEngineCapacity(int engineCapacity) { this->engineCapacity = engineCapacity; }
 
-    // Ghi đè phương thức hiển thị
-    void displayInfo() const override {
-        cout << "[XE MÁY] ";
-        Vehicle::displayInfo();
-        cout << " | Dung tích: " << engineCC << " cc";
-    }
-
-    // Ghi đè công thức tính tiền cho Xe máy (Giảm 5% từ 5 ngày)
+    // Ghi đè tính phí thuê: Giảm 5% nếu thuê từ 5 ngày trở lên
     double calculateRentalFee(int days) const override {
-        double fee = days * rentalPrice;
+        double fee = days * getPricePerDay();
         if (days >= 5) {
-            fee *= 0.95;
+            fee *= 0.95; // Giảm 5%
         }
         return fee;
     }
+
+    // Ghi đè hiển thị thông tin: Gọi lại hàm của lớp cha
+    void displayInfo() const override {
+        Vehicle::displayInfo(); // Gọi displayInfo() của lớp cha Vehicle
+        cout << " | Loại: Xe máy (" << engineCapacity << " cc)";
+    }
 };
 
-// --- LỚP TRUCK ---
+// ==========================================
+// 4. LỚP CON 3: Truck (Xe tải)
+// ==========================================
 class Truck : public Vehicle {
 private:
-    double transportFee;
+    double fixedShippingFee; // Phí vận chuyển cố định
 
 public:
-    Truck() : Vehicle(), transportFee(0.0) {}
-    Truck(string i, string n, double p, double t) : Vehicle(i, n, p), transportFee(t) {}
+    // Default constructor
+    Truck() : Vehicle(), fixedShippingFee(0.0) {}
 
-    double getTransportFee() const { return transportFee; }
-    void setTransportFee(double t) { transportFee = t; }
+    // Parameterized constructor
+    Truck(string id, string brand, double pricePerDay, double fixedShippingFee)
+        : Vehicle(id, brand, pricePerDay), fixedShippingFee(fixedShippingFee) {}
 
-    string getType() const override { return "Truck"; }
+    // Getter & Setter
+    double getFixedShippingFee() const { return fixedShippingFee; }
+    void setFixedShippingFee(double fixedShippingFee) { this->fixedShippingFee = fixedShippingFee; }
 
-    // Ghi đè phương thức hiển thị
-    void displayInfo() const override {
-        cout << "[XE TẢI] ";
-        Vehicle::displayInfo();
-        cout << " | Phí VC cố định: " << fixed << setprecision(0) << transportFee << " VND";
-    }
-
-    // Ghi đè công thức tính tiền cho Xe tải (Cộng thêm phí vận chuyển)
+    // Ghi đè tính phí thuê: số ngày × đơn giá + phí vận chuyển cố định
     double calculateRentalFee(int days) const override {
-        return (days * rentalPrice) + transportFee;
+        return (days * getPricePerDay()) + fixedShippingFee;
+    }
+
+    // Ghi đè hiển thị thông tin: Gọi lại hàm của lớp cha
+    void displayInfo() const override {
+        Vehicle::displayInfo(); // Gọi displayInfo() của lớp cha Vehicle
+        cout << " | Loại: Xe tải | Phí VC cố định: " << fixed << setprecision(0) << fixedShippingFee << " VNĐ";
     }
 };
 
-// =========================================================
-// 3. LỚP QUẢN LÝ (RENTAL MANAGER) - ĐÓNG GÓI XỬ LÝ ĐA HÌNH
-// =========================================================
-class RentalManager {
-private:
-    vector<Vehicle*> fleet; // Mảng chứa các con trỏ lớp cha Vehicle*
-
-public:
-    // Destructor tự động giải phóng vùng nhớ cho toàn bộ danh sách
-    ~RentalManager() {
-        for (Vehicle* v : fleet) {
-            delete v;
-        }
-        fleet.clear();
-    }
-
-    // Thêm phương thức vào hệ thống
-    void addVehicle(Vehicle* v) {
-        fleet.push_back(v);
-    }
-
-    // MINH HỌA TÍNH ĐA HÌNH RÕ RÀNG NHẤT:
-    // Hàm này duyệt qua danh sách Vehicle*, gọi v->displayInfo() và v->calculateRentalFee()
-    // Cơ chế Dynamic Binding của C++ sẽ tự tìm đúng hàm của Car, Motorbike hoặc Truck để chạy.
-    void processAndShowReport(int days) const {
-        cout << "\n==========================================================================" << endl;
-        cout << "              BÁO CÁO THUÊ XE HỆ THỐNG (" << days << " NGÀY)" << endl;
-        cout << "==========================================================================" << endl << endl;
-
-        double totalRevenue = 0.0;
-        double maxFee = -1.0;
-        const Vehicle* highestVehicle = nullptr;
-
-        for (const Vehicle* v : fleet) {
-            // 1. Gọi hàm hiển thị đa hình
-            v->displayInfo();
-            cout << endl;
-
-            // 2. Gọi hàm tính tiền đa hình
-            double fee = v->calculateRentalFee(days);
-            cout << "   ---> Phí thuê (" << days << " ngày): " 
-                 << fixed << setprecision(0) << fee << " VND\n\n";
-
-            totalRevenue += fee;
-
-            // 3. Tìm xe có chi phí cao nhất
-            if (fee > maxFee) {
-                maxFee = fee;
-                highestVehicle = v;
-            }
-        }
-
-        cout << "==========================================================================" << endl;
-        cout << " TỔNG DOANH THU HỆ THỐNG : " << fixed << setprecision(0) << totalRevenue << " VND" << endl;
-        cout << "--------------------------------------------------------------------------" << endl;
-        
-        if (highestVehicle != nullptr) {
-            cout << " PHƯƠNG TIỆN CÓ PHÍ THUÊ CAO NHẤT:" << endl << " ";
-            highestVehicle->displayInfo();
-            cout << "\n ---> Tổng tiền: " << fixed << setprecision(0) << maxFee << " VND" << endl;
-        }
-        cout << "==========================================================================" << endl;
-    }
-};
-
-// =========================================================
-// 4. HÀM MAIN
-// =========================================================
+// ==========================================
+// 5. HÀM MAIN: THỂ HIỆN TÍNH ĐA HÌNH
+// ==========================================
 int main() {
-    RentalManager manager;
+    // Tạo danh sách phương tiện bằng vector<Vehicle*>
+    vector<Vehicle*> vehicles;
 
-    // Khởi tạo và thêm các đối tượng con vào lớp quản lý
-    manager.addVehicle(new Car("C01", "Toyota", 1000000, 7));
-    manager.addVehicle(new Car("C02", "Honda", 800000, 5));
-    manager.addVehicle(new Motorbike("M01", "Honda Winner", 150000, 150));
-    manager.addVehicle(new Motorbike("M02", "Yamaha Exciter", 120000, 155));
-    manager.addVehicle(new Truck("T01", "Hyundai Truck", 2000000, 500000));
-    manager.addVehicle(new Truck("T02", "Isuzu Truck", 2500000, 700000));
+    // Khởi tạo các đối tượng xe
+    vehicles.push_back(new Car("C01", "Toyota", 800000, 5));
+    vehicles.push_back(new Car("C02", "Hyundai", 1200000, 7));
+    vehicles.push_back(new Motorbike("M01", "Honda", 150000, 125));
+    vehicles.push_back(new Motorbike("M02", "Yamaha", 200000, 150));
+    vehicles.push_back(new Truck("T01", "Isuzu", 1500000, 500000));
 
-    int days;
-    cout << "Nhap so ngay thue: ";
-    cin >> days;
+    int rentalDays = 7; // Giả định thuê trong 7 ngày
 
-    if (days <= 0) {
-        cout << "So ngay thue khong hop le!" << endl;
-        return 0;
+    cout << "==========================================================================" << endl;
+    cout << "          DANH SÁCH PHƯƠNG TIỆN VÀ PHÍ THUÊ DỰ KIẾN (" << rentalDays << " NGÀY)" << endl;
+    cout << "==========================================================================" << endl << endl;
+
+    double totalRevenue = 0.0;
+    Vehicle* maxFeeVehicle = nullptr;
+    double maxFee = -1.0;
+
+    // TÍNH ĐA HÌNH THỂ HIỆN Ở ĐÂY:
+    // Duyệt danh sách qua con trỏ lớp cha Vehicle*
+    for (const Vehicle* v : vehicles) {
+        // 1. Đa hình khi gọi displayInfo(): tự gọi đúng phương thức của lớp con tương ứng
+        v->displayInfo();
+        cout << endl;
+
+        // 2. Đa hình khi gọi calculateRentalFee(): tự áp dụng công thức riêng của từng loại xe
+        double fee = v->calculateRentalFee(rentalDays);
+        cout << "   --> Phí thuê (" << rentalDays << " ngày): " 
+             << fixed << setprecision(0) << fee << " VNĐ" << endl << endl;
+
+        // 3. Cộng dồn tổng doanh thu
+        totalRevenue += fee;
+
+        // 4. Tìm xe có phí thuê cao nhất
+        if (fee > maxFee) {
+            maxFee = fee;
+            maxFeeVehicle = const_cast<Vehicle*>(v);
+        }
     }
 
-    // Thực thi xử lý đa hình tập trung trong RentalManager
-    manager.processAndShowReport(days);
+    cout << "==========================================================================" << endl;
+    cout << " TỔNG DOANH THU THUÊ XE: " << fixed << setprecision(0) << totalRevenue << " VNĐ" << endl;
+    cout << "--------------------------------------------------------------------------" << endl;
+    
+    if (maxFeeVehicle != nullptr) {
+        cout << " PHƯƠNG TIỆN CÓ PHÍ THUÊ CAO NHẤT:" << endl << " ";
+        maxFeeVehicle->displayInfo();
+        cout << "\n --> Phí thuê: " << fixed << setprecision(0) << maxFee << " VNĐ" << endl;
+    }
+    cout << "==========================================================================" << endl;
+
+    // Giải phóng bộ nhớ động
+    for (Vehicle* v : vehicles) {
+        delete v;
+    }
+    vehicles.clear();
 
     return 0;
 }
