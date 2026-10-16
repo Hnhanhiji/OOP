@@ -87,7 +87,7 @@ double calculateFoodsRevenue(Foods* foods[], int n, int d, int m, int y) {
 }
 
 int main() {
-    // Khởi tạo đối tượng bằng Uniform Initialization {} (chuẩn C++11 trở lên)
+ 
     Coffee c{500000, 16, 10, 2026};
     Tea t{300000, 16, 10, 2026};
     Smoothies s{400000, 16, 10, 2026};
