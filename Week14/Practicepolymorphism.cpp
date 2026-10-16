@@ -29,7 +29,7 @@ public:
     void setId(const string& id) { this->id = id; }
     void setName(const string& name) { this->name = name; }
 
-    // Phương thức ảo thuần túy (Pure Virtual Function) - Bắt buộc các lớp con phải override
+    //  (Pure Virtual Function) - Bắt buộc các lớp con phải override
     virtual double calculateSalary(int month, int year) const = 0;
 
     // Phương thức ảo hiển thị thông tin chung
@@ -166,7 +166,7 @@ public:
     }
 };
 
-// ==========================================
+
 // HÀM MAIN: DEMO TÍNH ĐA HÌNH (POLYMORPHISM)
 // ==========================================
 int main() {
