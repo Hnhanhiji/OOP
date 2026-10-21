@@ -10,25 +10,22 @@ using namespace std;
 // ==========================================
 class Room {
 private:
-    // Properties cũ
     string roomId;
     double basePrice;
     int maxAdults;
     int maxChildren;
     
-    // Properties MỚI thêm vào
     double roomArea;      // Diện tích phòng (m2)
     bool hasBalcony;      // Có ban công hay không
     int floorNumber;      // Tầng số mấy
     string viewType;      // Hướng nhìn (City View, Sea View, v.v.)
 
 public:
-    // Constructors
+    // Constructors (Sức chứa mặc định: 2 NL, 1 TE)
     Room(string id, double price, double area, bool balcony, int floor, string view, int maxA = 2, int maxC = 1)
         : roomId(id), basePrice(price), roomArea(area), hasBalcony(balcony), 
           floorNumber(floor), viewType(view), maxAdults(maxA), maxChildren(maxC) {}
 
-    // Virtual Destructor
     virtual ~Room() = default;
 
     // Getters
@@ -49,10 +46,8 @@ public:
     void setFloorNumber(int floor) { floorNumber = floor; }
     void setViewType(const string& view) { viewType = view; }
 
-    // Pure Virtual Function (Tính trừu tượng)
     virtual string getRoomType() const = 0;
     
-    // Virtual Method
     virtual double calculatePrice() const {
         return basePrice;
     }
@@ -62,8 +57,9 @@ public:
              << " | Tầng: " << floorNumber
              << " | Diện tích: " << roomArea << "m2"
              << " | View: " << viewType
-             << " | Ban công: " << (hasBalcony ? "Có" : "Không")
-             << "\n           => Giá phòng: " << fixed << setprecision(0) << calculatePrice() << " VNĐ";
+             << " | Sức chứa: " << maxAdults << "NL + " << maxChildren << "TE"
+             << "\n           => Ban công: " << (hasBalcony ? "Có" : "Không")
+             << " | Giá phòng: " << fixed << setprecision(0) << calculatePrice() << " VNĐ";
     }
 };
 
@@ -72,7 +68,6 @@ public:
 // ==========================================
 class StandardRoom : public Room {
 public:
-    // Standard Room mặc định: 25m2, không ban công, City View
     StandardRoom(string id, int floor) 
         : Room(id, 1000000, 25.0, false, floor, "City View") {}
 
@@ -89,20 +84,25 @@ public:
 // ==========================================
 class RelaxRoom : public Room {
 private:
-    int singleBeds; // 1 giường đơn lớn
-    int doubleBeds; // 2 giường đôi
+    string bedType; // Option lựa chọn giường
 
 public:
-    // Relax Room mặc định: 40m2, có ban công, Garden View
-    RelaxRoom(string id, int floor) 
-        : Room(id, 1600000, 40.0, true, floor, "Garden View"), singleBeds(1), doubleBeds(2) {}
+    // Thêm tham số bedOption: 1 -> 1 giường đơn lớn, 2 -> 2 giường đôi
+    RelaxRoom(string id, int floor, int bedOption) 
+        : Room(id, 1600000, 40.0, true, floor, "Garden View") {
+        if (bedOption == 1) {
+            bedType = "1 giường đơn lớn";
+        } else {
+            bedType = "2 giường đôi";
+        }
+    }
 
     string getRoomType() const override { return "Relax Room"; }
 
     void displayInfo() const override {
         cout << "[Relax]    ";
         Room::displayInfo();
-        cout << " | " << singleBeds << " giường đơn, " << doubleBeds << " giường đôi";
+        cout << " | Giường: " << bedType;
     }
 };
 
@@ -111,19 +111,26 @@ public:
 // ==========================================
 class LuxuryRoom : public Room {
 private:
-    bool privateBathroom; // Có phòng tắm riêng tư cao cấp
+    bool privateBathroom; 
+    string bedType; // Option lựa chọn giường
 
 public:
-    // Luxury Room mặc định: 65m2, có ban công rộng, Sea View
-    LuxuryRoom(string id, int floor) 
-        : Room(id, 2500000, 65.0, true, floor, "Ocean/Sea View"), privateBathroom(true) {}
+    // Thêm tham số bedOption: 1 -> 1 giường đơn lớn, 2 -> 2 giường đôi
+    LuxuryRoom(string id, int floor, int bedOption) 
+        : Room(id, 2500000, 65.0, true, floor, "Ocean/Sea View"), privateBathroom(true) {
+        if (bedOption == 1) {
+            bedType = "1 giường đơn lớn";
+        } else {
+            bedType = "2 giường đôi";
+        }
+    }
 
     string getRoomType() const override { return "Luxury Room"; }
 
     void displayInfo() const override {
         cout << "[Luxury]   ";
         Room::displayInfo();
-        cout << " | VIP: " << (privateBathroom ? "Bồn tắm sục Jacuzzi riêng" : "Thường");
+        cout << " | VIP: Bồn tắm Jacuzzi riêng | Giường: " << bedType;
     }
 };
 
@@ -131,9 +138,6 @@ public:
 // HÀM MAIN
 // ==========================================
 int main() {
-    int totalAdults = 30;
-    int totalChildren = 20;
-
     cout << "========================================================================================\n";
     cout << "               HỆ THỐNG QUẢN LÝ PHÒNG KHÁCH SẠN MỞ RỘNG (C++ OOP)\n";
     cout << "========================================================================================\n";
@@ -149,13 +153,17 @@ int main() {
     // 2. Tạo 10 phòng Relax (Tầng 3 và 4)
     for (int i = 1; i <= 10; ++i) {
         int floor = (i <= 5) ? 3 : 4;
-        hotelRooms.push_back(new RelaxRoom("RLX" + to_string(300 + i), floor));
+        // Xen kẽ tùy chọn giường: phòng chẵn lấy option 2, phòng lẻ lấy option 1
+        int bedOption = (i % 2 == 0) ? 2 : 1; 
+        hotelRooms.push_back(new RelaxRoom("RLX" + to_string(300 + i), floor, bedOption));
     }
 
-    // 3. Tạo 10 phòng Luxury (Tầng 5 và 6 - Tầng cao view biển)
+    // 3. Tạo 10 phòng Luxury (Tầng 5 và 6)
     for (int i = 1; i <= 10; ++i) {
         int floor = (i <= 5) ? 5 : 6;
-        hotelRooms.push_back(new LuxuryRoom("LUX" + to_string(500 + i), floor));
+        // Xen kẽ tùy chọn giường
+        int bedOption = (i % 2 == 0) ? 2 : 1; 
+        hotelRooms.push_back(new LuxuryRoom("LUX" + to_string(500 + i), floor, bedOption));
     }
 
     // ================= HIỂN THỊ DANH SÁCH TẤT CẢ 30 PHÒNG =================
@@ -163,7 +171,6 @@ int main() {
     
     double totalCost = 0.0;
     for (size_t i = 0; i < hotelRooms.size(); ++i) {
-        // Đa hình: Tự động gọi hàm displayInfo() tương ứng của từng class con
         hotelRooms[i]->displayInfo();
         cout << "\n----------------------------------------------------------------------------------------\n";
         totalCost += hotelRooms[i]->calculatePrice();
